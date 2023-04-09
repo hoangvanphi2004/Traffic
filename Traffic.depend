@@ -1,0 +1,202 @@
+# depslib dependency file v1.0
+1680692712 source:d:\programming\laptrinhnangcao\gohome\src\main.cpp
+	"../Include/Game.h"
+	"../Include/def.h"
+
+1680690174 d:\programming\laptrinhnangcao\gohome\include\game.h
+	<SDL.h>
+	<vector>
+	<iostream>
+	"../Include/PlayerCar.h"
+	"../Include/Materials.h"
+	"../Include/Car.h"
+	"../Include/EnemyCar.h"
+
+1680680019 d:\programming\laptrinhnangcao\gohome\include\def.h
+
+1680783491 source:d:\programming\laptrinhnangcao\gohome\src\game.cpp
+	"../Include/Game.h"
+	"../Include/def.h"
+
+1680622761 d:\programming\laptrinhnangcao\gohome\include\background.h
+	<SDL.h>
+	"../Include/Materials.h"
+
+1680677521 d:\programming\laptrinhnangcao\gohome\include\player.h
+	<SDL.h>
+	"Car.h"
+	"Materials.h"
+	"def.h"
+
+1680606561 source:d:\programming\laptrinhnangcao\gohome\src\background.cpp
+	"../Include/Background.h"
+	"../Include/def.h"
+
+1680613577 d:\programming\laptrinhnangcao\gohome\include\texture.h
+	<string>
+	<SDL.h>
+	<SDL_image.h>
+
+1680612572 source:d:\programming\laptrinhnangcao\gohome\src\texture.cpp
+	"../Include/Texture.h"
+	"../Include/def.h"
+
+1680783897 d:\programming\laptrinhnangcao\gohome\include\materials.h
+	<iostream>
+	<string>
+	<vector>
+	<map>
+	<SDL.h>
+	<SDL_image.h>
+	"def.h"
+
+1680784567 source:d:\programming\laptrinhnangcao\gohome\src\materials.cpp
+	"../Include/Materials.h"
+	"../Include/def.h"
+
+1680783974 source:d:\programming\laptrinhnangcao\gohome\src\car.cpp
+	"../Include/Car.h"
+
+1680784353 d:\programming\laptrinhnangcao\gohome\include\car.h
+	<SDL.h>
+	<iostream>
+	"Materials.h"
+	"def.h"
+
+1680783715 d:\programming\laptrinhnangcao\gohome\include\enemycar.h
+	<SDL.h>
+	<string>
+	"def.h"
+	"Car.h"
+	"Materials.h"
+
+1680784252 source:d:\programming\laptrinhnangcao\gohome\src\enemycar.cpp
+	"../Include/EnemyCar.h"
+	"../Include/def.h"
+
+1680782959 source:d:\programming\laptrinhnangcao\gohome\src\playercar.cpp
+	"../Include/PlayerCar.h"
+	"../Include/def.h"
+
+1680782952 d:\programming\laptrinhnangcao\gohome\include\playercar.h
+	<SDL.h>
+	<algorithm>
+	"Car.h"
+	"Materials.h"
+	"def.h"
+	"EnemyCar.h"
+
+1681053868 source:d:\programming\laptrinhnangcao\traffic\src\enemycar.cpp
+	"../Include/EnemyCar.h"
+
+1681053836 d:\programming\laptrinhnangcao\traffic\include\enemycar.h
+	<SDL.h>
+	<string>
+	"def.h"
+	"Car.h"
+	"Materials.h"
+	"SceneComponent.h"
+
+1681032418 d:\programming\laptrinhnangcao\traffic\include\def.h
+
+1681052800 d:\programming\laptrinhnangcao\traffic\include\car.h
+	<SDL.h>
+	<iostream>
+	"Materials.h"
+	"def.h"
+
+1680797307 d:\programming\laptrinhnangcao\traffic\include\materials.h
+	<iostream>
+	<string>
+	<vector>
+	<map>
+	<SDL.h>
+	<SDL_image.h>
+	"def.h"
+
+1681055463 source:d:\programming\laptrinhnangcao\traffic\src\game.cpp
+	"../Include/Game.h"
+
+1681055402 d:\programming\laptrinhnangcao\traffic\include\game.h
+	<SDL.h>
+	<vector>
+	<iostream>
+	"PlayerCar.h"
+	"Materials.h"
+	"Car.h"
+	"EnemyCar.h"
+	"Map.h"
+
+1681052761 d:\programming\laptrinhnangcao\traffic\include\playercar.h
+	<SDL.h>
+	<vector>
+	"Car.h"
+	"Materials.h"
+	"def.h"
+	"EnemyCar.h"
+	"SceneComponentAsset.h"
+	"SceneComponent.h"
+
+1681055503 source:d:\programming\laptrinhnangcao\traffic\src\main.cpp
+	"../Include/Game.h"
+	"../Include/def.h"
+
+1681052725 source:d:\programming\laptrinhnangcao\traffic\src\playercar.cpp
+	"../Include/PlayerCar.h"
+
+1680947511 source:d:\programming\laptrinhnangcao\traffic\src\car.cpp
+	"../Include/Car.h"
+
+1680790475 d:\programming\laptrinhnangcao\traffic\include\viewcomponent.h
+	<SDL.h>
+	<iostream>
+	"def.h"
+
+1681044626 source:d:\programming\laptrinhnangcao\traffic\src\materials.cpp
+	"../Include/Materials.h"
+
+1680790484 source:d:\programming\laptrinhnangcao\traffic\src\viewcomponent.cpp
+	"../Include/ViewComponent.h"
+	"../Include/def.h"
+
+1680972301 d:\programming\laptrinhnangcao\traffic\include\scenecomponent.h
+	<SDL.h>
+	<iostream>
+	"def.h"
+	"Materials.h"
+
+1681043491 source:d:\programming\laptrinhnangcao\traffic\src\scenecomponent.cpp
+	"../Include/SceneComponent.h"
+
+1680791338 source:d:\programming\laptrinhnangcao\traffic\src\scenecomponentsasset.cpp
+
+1681053868 source:d:\programming\laptrinhnangcao\traffic\src\scenecomponentasset.cpp
+	"../Include/SceneComponentAsset.h"
+	"../Include/def.h"
+
+1681053504 d:\programming\laptrinhnangcao\traffic\include\scenecomponentasset.h
+	<SDL.h>
+	"Materials.h"
+	"EnemyCar.h"
+	"Map.h"
+	"SceneComponent.h"
+
+1681055592 d:\programming\laptrinhnangcao\traffic\include\map.h
+	<SDL.h>
+	<list>
+	<ctime>
+	<cstdlib>
+	"def.h"
+	"EnemyCar.h"
+	"SceneComponent.h"
+
+1681053872 source:d:\programming\laptrinhnangcao\traffic\src\map.cpp
+	"../Include/Map.h"
+
+1681032990 source:d:\programming\laptrinhnangcao\traffic\src\def.cpp
+	"../Include/def.h"
+	<bits/stdc++.h>
+
+1680885557 d:\programming\laptrinhnangcao\traffic\src\def.cpp
+	"../Include/def.h"
+
