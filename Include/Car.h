@@ -10,14 +10,12 @@ class Car{
 public:
     int w, h;
     Direction moveDirection = DEFAULT;
-    int velocity = 2;
+    static float velocity;
 protected:
-    int recentVelocity = 0;
+    float recentVelocity = 0;
     std::string carName;
-
-    Materials* carMaterials;
 protected:
     void render(int x, int y);
 public:
-    Car(Materials* carMaterials, std::string carName);
+    Car(std::string carName);
 };

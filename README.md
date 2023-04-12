@@ -2,6 +2,7 @@
 The game is about a car want to go home. The way to home go through many crossroads and a lot of moving cars. We need to avoid any accident to get home safe.
 ## Rule
 - Drive the yellow car to avoid other car
+- Any accident will make you lose
 - Find the right way to go home by finding the green light
 ## Instruction
 - Press W or arrow key up to move up

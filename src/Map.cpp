@@ -4,10 +4,10 @@ Map::Map(SceneComponent* background, Direction direction) : background(backgroun
     previousTimeSpawn = 0;
     this->direction = direction;
     srand(time(NULL));
-    blockRectangles.push_back(new SceneComponent(background->sceneMaterial, background->x, background->y, "block1"));
-    blockRectangles.push_back(new SceneComponent(background->sceneMaterial, background->x + background->getWidth() - blockRectangles.front()->getWidth(), background->y, "block1"));
-    blockRectangles.push_back(new SceneComponent(background->sceneMaterial, background->x, background->y + background->getHeight() - blockRectangles.front()->getHeight(), "block1"));
-    blockRectangles.push_back(new SceneComponent(background->sceneMaterial, background->x + background->getWidth() - blockRectangles.front()->getWidth(), background->y + background->getHeight() - blockRectangles.front()->getHeight(), "block1"));
+    blockRectangles.push_back(new SceneComponent(background->x, background->y, "block1"));
+    blockRectangles.push_back(new SceneComponent(background->x + background->getWidth() - blockRectangles.front()->getWidth(), background->y, "block1"));
+    blockRectangles.push_back(new SceneComponent(background->x, background->y + background->getHeight() - blockRectangles.front()->getHeight(), "block1"));
+    blockRectangles.push_back(new SceneComponent(background->x + background->getWidth() - blockRectangles.front()->getWidth(), background->y + background->getHeight() - blockRectangles.front()->getHeight(), "block1"));
     blockRoadPositionX[2] = background->getWidth() - 10;
     blockRoadPositionY[3] = background->getHeight() - 10;
 };
@@ -83,7 +83,7 @@ bool Map::checkAnyFutureCollider(EnemyCar* enemyCar){
 }
 
 void Map::createEnemyCar(int roadLanes, int x, int y, Direction direction){
-        chosenEnemyCar = new EnemyCar(background->sceneMaterial, x, y, rand() % 3 + 1, direction);
+        chosenEnemyCar = new EnemyCar(x, y, rand() % 3 + 1, direction);
         if(SDL_GetTicks() - previousTimeSpawn > spawnTime && !checkAnyFutureCollider(chosenEnemyCar)){
             enemyCars.push_back(chosenEnemyCar);
             previousTimeSpawn = SDL_GetTicks();
@@ -131,7 +131,6 @@ void Map::clearEnemyCar(){
 SceneComponent* Map::createLight(std::string lightType, Direction direction){
     if(direction == LEFT){
         return new SceneComponent(
-            background->sceneMaterial,
             background->x + blockRoadPositionX[0] - 250,
             background->y + blockRoadPositionY[0] - 110,
             lightType
@@ -139,23 +138,20 @@ SceneComponent* Map::createLight(std::string lightType, Direction direction){
     }
     if(direction == UP){
         return new SceneComponent(
-            background->sceneMaterial,
-            background->x + blockRoadPositionX[1] + background->sceneMaterial->materials["block2"].w + 55,
+            background->x + blockRoadPositionX[1] + Materials::gameMaterials->materials["block2"].w + 55,
             background->y + blockRoadPositionY[1] - 150,
             lightType
         );
     }
     if(direction == RIGHT){
         return new SceneComponent(
-            background->sceneMaterial,
             background->x + blockRoadPositionX[2] + 250,
-            background->y + blockRoadPositionY[2] + background->sceneMaterial->materials["block3"].h + 35,
+            background->y + blockRoadPositionY[2] + Materials::gameMaterials->materials["block3"].h + 35,
             lightType
         );
     }
     if(direction == DOWN){
         return new SceneComponent(
-            background->sceneMaterial,
             background->x + blockRoadPositionX[3] - 90,
             background->y + blockRoadPositionY[3] + 150,
             lightType
@@ -166,7 +162,6 @@ SceneComponent* Map::createLight(std::string lightType, Direction direction){
 void Map::addBlock(){
     if(nextDirection != LEFT){
         blockRectangles.push_back(new SceneComponent(
-            background->sceneMaterial,
             background->x + blockRoadPositionX[0],
             background->y + blockRoadPositionY[0],
             "block3"
@@ -177,7 +172,6 @@ void Map::addBlock(){
     }
     if(nextDirection != UP){
         blockRectangles.push_back(new SceneComponent(
-            background->sceneMaterial,
             background->x + blockRoadPositionX[1],
             background->y + blockRoadPositionY[1],
             "block2"
@@ -188,7 +182,6 @@ void Map::addBlock(){
     }
     if(nextDirection != RIGHT){
         blockRectangles.push_back(new SceneComponent(
-            background->sceneMaterial,
             background->x + blockRoadPositionX[2],
             background->y + blockRoadPositionY[2],
             "block3"
@@ -199,7 +192,6 @@ void Map::addBlock(){
     }
     if(nextDirection != DOWN){
         blockRectangles.push_back(new SceneComponent(
-            background->sceneMaterial,
             background->x + blockRoadPositionX[3],
             background->y + blockRoadPositionY[3],
             "block2"

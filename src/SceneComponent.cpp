@@ -1,22 +1,21 @@
 #include "../Include/SceneComponent.h"
 
-SceneComponent::SceneComponent(Materials* sceneMaterial, int x, int y, std::string sceneComponentName){
-    this->sceneMaterial = sceneMaterial;
+SceneComponent::SceneComponent(int x, int y, std::string sceneComponentName){
     this->x = x;
     this->y = y;
     this->sceneComponentName = sceneComponentName;
 }
 
 int SceneComponent::getWidth(){
-    return sceneMaterial->materials[sceneComponentName].w;
+    return Materials::gameMaterials->materials[sceneComponentName].w;
 }
 
 int SceneComponent::getHeight(){
-    return sceneMaterial->materials[sceneComponentName].h;
+    return Materials::gameMaterials->materials[sceneComponentName].h;
 }
 
 void SceneComponent::render(){
-    this->sceneMaterial->render(sceneComponentName, x, y, SDL_FLIP_NONE);
+    Materials::gameMaterials->render(sceneComponentName, x, y, SDL_FLIP_NONE);
 }
 
 void SceneComponent::translateView(Direction direction, int velocity){

@@ -12,7 +12,7 @@ class EnemyCar: public Car, public SceneComponent{
 private:
     int carType = 1;
 public:
-    EnemyCar(Materials* materials, int x, int y, int carType, Direction moveDirection);
+    EnemyCar(int x, int y, int carType, Direction moveDirection);
 
     void run();
 

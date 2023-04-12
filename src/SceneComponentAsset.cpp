@@ -1,13 +1,11 @@
 #include "../Include/SceneComponentAsset.h"
 #include "../Include/def.h"
 
-SceneComponentAsset::SceneComponentAsset(Materials* materials){
-    this->materials = materials;
+SceneComponentAsset::SceneComponentAsset(){
     renderBackground = new Map(
         new SceneComponent(
-            materials,
-            (SCREEN_WIDTH - materials->materials["background"].w) / 2,
-            (SCREEN_HEIGHT - materials->materials["background"].h) / 2,
+            (SCREEN_WIDTH - Materials::gameMaterials->materials["background"].w) / 2,
+            (SCREEN_HEIGHT - Materials::gameMaterials->materials["background"].h) / 2,
              "background"
         ),
         DEFAULT
@@ -15,9 +13,8 @@ SceneComponentAsset::SceneComponentAsset(Materials* materials){
     // Left render background
     aroundRenderBackground[0] = new Map(
         new SceneComponent(
-            materials,
-            (SCREEN_WIDTH - materials->materials["background"].w) / 2 - materials->materials["background"].w,
-            (SCREEN_HEIGHT - materials->materials["background"].h) / 2,
+            (SCREEN_WIDTH - Materials::gameMaterials->materials["background"].w) / 2 - Materials::gameMaterials->materials["background"].w,
+            (SCREEN_HEIGHT - Materials::gameMaterials->materials["background"].h) / 2,
              "background"
         ),
         LEFT
@@ -25,9 +22,8 @@ SceneComponentAsset::SceneComponentAsset(Materials* materials){
     // Right render background
     aroundRenderBackground[2] = new Map(
         new SceneComponent(
-            materials,
-            (SCREEN_WIDTH - materials->materials["background"].w) / 2 + materials->materials["background"].w,
-            (SCREEN_HEIGHT - materials->materials["background"].h) / 2,
+            (SCREEN_WIDTH - Materials::gameMaterials->materials["background"].w) / 2 + Materials::gameMaterials->materials["background"].w,
+            (SCREEN_HEIGHT - Materials::gameMaterials->materials["background"].h) / 2,
              "background"
         ),
         RIGHT
@@ -35,9 +31,8 @@ SceneComponentAsset::SceneComponentAsset(Materials* materials){
     // Top render background
     aroundRenderBackground[1] = new Map(
         new SceneComponent(
-            materials,
-            (SCREEN_WIDTH - materials->materials["background"].w) / 2,
-            (SCREEN_HEIGHT - materials->materials["background"].h) / 2 - materials->materials["background"].h,
+            (SCREEN_WIDTH - Materials::gameMaterials->materials["background"].w) / 2,
+            (SCREEN_HEIGHT - Materials::gameMaterials->materials["background"].h) / 2 - Materials::gameMaterials->materials["background"].h,
              "background"
         ),
         UP
@@ -45,9 +40,8 @@ SceneComponentAsset::SceneComponentAsset(Materials* materials){
     // Bottom render background
     aroundRenderBackground[3] = new Map(
         new SceneComponent(
-            materials,
-            (SCREEN_WIDTH - materials->materials["background"].w) / 2,
-            (SCREEN_HEIGHT - materials->materials["background"].h) / 2 + materials->materials["background"].h,
+            (SCREEN_WIDTH - Materials::gameMaterials->materials["background"].w) / 2,
+            (SCREEN_HEIGHT - Materials::gameMaterials->materials["background"].h) / 2 + Materials::gameMaterials->materials["background"].h,
              "background"
         ),
         DOWN
@@ -74,8 +68,7 @@ void SceneComponentAsset::translateView(Direction direction, int velocity){
 void SceneComponentAsset::createNewLeft(){
     aroundRenderBackground[0] = new Map(
         new SceneComponent(
-            materials,
-            renderBackground->background->x - materials->materials["background"].w,
+            renderBackground->background->x - Materials::gameMaterials->materials["background"].w,
             renderBackground->background->y,
              "background"
         ),
@@ -86,8 +79,7 @@ void SceneComponentAsset::createNewLeft(){
 void SceneComponentAsset::createNewRight(){
     aroundRenderBackground[2] = new Map(
         new SceneComponent(
-            materials,
-            renderBackground->background->x + materials->materials["background"].w,
+            renderBackground->background->x + Materials::gameMaterials->materials["background"].w,
             renderBackground->background->y,
              "background"
         ),
@@ -98,9 +90,8 @@ void SceneComponentAsset::createNewRight(){
 void SceneComponentAsset::createNewTop(){
     aroundRenderBackground[1] = new Map(
         new SceneComponent(
-            materials,
             renderBackground->background->x,
-            renderBackground->background->y - materials->materials["background"].h,
+            renderBackground->background->y - Materials::gameMaterials->materials["background"].h,
              "background"
         ),
         UP
@@ -110,9 +101,8 @@ void SceneComponentAsset::createNewTop(){
 void SceneComponentAsset::createNewBottom(){
     aroundRenderBackground[3] = new Map(
         new SceneComponent(
-            materials,
             renderBackground->background->x,
-            renderBackground->background->y + materials->materials["background"].h,
+            renderBackground->background->y + Materials::gameMaterials->materials["background"].h,
              "background"
         ),
         DOWN

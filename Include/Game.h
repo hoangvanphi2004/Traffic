@@ -17,7 +17,6 @@ private:
     SDL_Event event;
     bool quit = false;
 
-    Materials* materials = new Materials();
     PlayerCar* playerCar;
     SceneComponentAsset* sceneComponentAsset;
 public:

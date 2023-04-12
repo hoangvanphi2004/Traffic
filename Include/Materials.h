@@ -16,6 +16,8 @@ struct Material{
 
 class Materials{
 public:
+    static Materials* gameMaterials;
+
     SDL_Renderer* renderer;
     std::map<std::string, Material> materials;
 public:
@@ -23,7 +25,7 @@ public:
 
     void loadMaterial(std::string materialName, std::string path);
 
-    void render(std::string materialName, int x, int y, SDL_RendererFlip flip);
+    void render(std::string materialName, float x, float y, SDL_RendererFlip flip);
 
     void print();
     void clean();

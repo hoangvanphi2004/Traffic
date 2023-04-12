@@ -1,13 +1,17 @@
 #include "../Include/PlayerCar.h"
 
-PlayerCar::PlayerCar(Materials* materials, SceneComponentAsset* sceneComponents) : Car(materials, "player"){
+PlayerCar::PlayerCar(SceneComponentAsset* sceneComponents) : Car("player"){
     this->sceneComponents = sceneComponents;
-    w = this->carMaterials->materials[carName + "Vertical"].w;
-    h = this->carMaterials->materials[carName + "Vertical"].h;
+    w = Materials::gameMaterials->materials[carName + "Vertical"].w;
+    h = Materials::gameMaterials->materials[carName + "Vertical"].h;
 };
 
 void PlayerCar::movement(SDL_Event& event){
+    if(recentVelocity != 0){
+        recentVelocity = velocity;
+    }
     if(event.key.repeat == 0){
+
         if(event.type == SDL_KEYDOWN){
             countKeyPress += 1;
             recentVelocity = velocity;

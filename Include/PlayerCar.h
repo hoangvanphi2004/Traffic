@@ -21,7 +21,7 @@ private:
     SceneComponent* recentBlock;
     SceneComponentAsset* sceneComponents;
 public:
-    PlayerCar(Materials* materials, SceneComponentAsset* sceneComponents);
+    PlayerCar(SceneComponentAsset* sceneComponents);
 
     void movement(SDL_Event& event);
     void addKey(Direction direction);

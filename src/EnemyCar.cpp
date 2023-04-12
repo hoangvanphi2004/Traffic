@@ -1,6 +1,6 @@
 #include "../Include/EnemyCar.h"
 
-EnemyCar::EnemyCar(Materials* materials, int x, int y, int carType, Direction moveDirection) : Car(materials, "car" + std::to_string(carType)){
+EnemyCar::EnemyCar(int x, int y, int carType, Direction moveDirection) : Car("car" + std::to_string(carType)){
     this->carType = carType;
     this->x = x;
     this->y = y;
@@ -10,8 +10,8 @@ EnemyCar::EnemyCar(Materials* materials, int x, int y, int carType, Direction mo
     }else{
         materialName += "Vertical";
     }
-    this->w = materials->materials[materialName].w;
-    this->h = materials->materials[materialName].h;
+    this->w = Materials::gameMaterials->materials[materialName].w;
+    this->h = Materials::gameMaterials->materials[materialName].h;
     this->moveDirection = moveDirection;
 }
 

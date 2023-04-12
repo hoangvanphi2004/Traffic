@@ -9,14 +9,14 @@ void Game::runningScreen(){
             playerCar->movement(event);
         }
         sceneComponentAsset->renderBackground->spawnEnemyCar(playerCar->x, playerCar->y);
-        materials->clean();
-        playerCar->checkBackground();
+        Materials::gameMaterials->clean();
+        if(!playerCar->checkBackground()) Car::velocity += 2;
         sceneComponentAsset->render();
         playerCar->render();
-        materials->print();
-        if(playerCar->checkAnyAccident()){
+        Materials::gameMaterials->print();
+        /*if(playerCar->checkAnyAccident()){
             close();
-        }
+        }*/
     }
     close();
 }
@@ -25,15 +25,15 @@ Game::Game(const char *title, int screen_width, int screen_height){
     SDL_Init(SDL_INIT_VIDEO);
 
     window = SDL_CreateWindow("Traffic", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, screen_width, screen_height, SDL_WINDOW_SHOWN);
-    materials->renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    Materials::gameMaterials->renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
-    materials->loadMaterials();
-    sceneComponentAsset = new SceneComponentAsset(materials);
-    playerCar = new PlayerCar(materials, sceneComponentAsset);
+    Materials::gameMaterials->loadMaterials();
+    sceneComponentAsset = new SceneComponentAsset();
+    playerCar = new PlayerCar(sceneComponentAsset);
 }
 
 void Game::close(){
-    materials->destroy();
+    Materials::gameMaterials->destroy();
 
     SDL_DestroyWindow(window);
 

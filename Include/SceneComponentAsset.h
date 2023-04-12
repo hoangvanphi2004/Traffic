@@ -11,10 +11,8 @@ class SceneComponentAsset{
 public:
     Map* renderBackground;
     Map* aroundRenderBackground[4];
-    Materials* materials;
-    int addVelocityValue = 0;
 public:
-    SceneComponentAsset(Materials* materials);
+    SceneComponentAsset();
 
     void render();
     void translateView(Direction direction, int velocity);

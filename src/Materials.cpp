@@ -1,5 +1,7 @@
 #include "../Include/Materials.h"
 
+Materials* Materials::gameMaterials = new Materials();
+
 void Materials::loadMaterials(){
     loadMaterial("background", "../Traffic/Assets/Background.png");
     loadMaterial("playerHorizontal", "../Traffic/Assets/PlayerHorizontal.png");
@@ -24,7 +26,7 @@ void Materials::loadMaterial(std::string materialName, std::string path){
     SDL_FreeSurface(surface);
 }
 
-void Materials::render(std::string materialName, int x, int y, SDL_RendererFlip flip){
+void Materials::render(std::string materialName, float x, float y, SDL_RendererFlip flip){
     SDL_Rect camera;
     camera.x = x;
     camera.y = y;

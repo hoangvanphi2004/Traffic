@@ -10,10 +10,9 @@ class SceneComponent{
 public:
     std::string sceneComponentName;
     int x, y;
-    Materials* sceneMaterial;
 public:
     SceneComponent(){};
-    SceneComponent(Materials* sceneMaterial, int x, int y, std::string SceneComponentName);
+    SceneComponent(int x, int y, std::string SceneComponentName);
 
     int getWidth();
     int getHeight();
