@@ -7,56 +7,70 @@ PlayerCar::PlayerCar(SceneComponentAsset* sceneComponents) : Car("player"){
 };
 
 void PlayerCar::movement(SDL_Event& event){
-    if(recentVelocity != 0){
-        recentVelocity = velocity;
-    }
     if(event.key.repeat == 0){
-
         if(event.type == SDL_KEYDOWN){
-            countKeyPress += 1;
-            recentVelocity = velocity;
             switch(event.key.keysym.sym){
             case SDLK_LEFT:
             case SDLK_a:
                 addKey(LEFT);
+                countKeyPress += 1;
+                recentVelocity = velocity;
                 break;
             case SDLK_UP:
             case SDLK_w:
                 addKey(UP);
+                countKeyPress += 1;
+                recentVelocity = velocity;
                 break;
             case SDLK_RIGHT:
             case SDLK_d:
                 addKey(RIGHT);
+                countKeyPress += 1;
+                recentVelocity = velocity;
                 break;
             case SDLK_DOWN:
             case SDLK_s:
                 addKey(DOWN);
+                countKeyPress += 1;
+                recentVelocity = velocity;
                 break;
             default:
                 break;
             }
         }
         if(event.type == SDL_KEYUP){
-            countKeyPress -= 1;
-            if(countKeyPress == 0){
-                recentVelocity = 0;
-            }
             switch(event.key.keysym.sym){
             case SDLK_LEFT:
             case SDLK_a:
                 removeKey(LEFT);
+                countKeyPress -= 1;
+                if(countKeyPress == 0){
+                    recentVelocity = 0;
+                }
                 break;
             case SDLK_UP:
             case SDLK_w:
                 removeKey(UP);
+                countKeyPress -= 1;
+                if(countKeyPress == 0){
+                    recentVelocity = 0;
+                }
                 break;
             case SDLK_RIGHT:
             case SDLK_d:
                 removeKey(RIGHT);
+                countKeyPress -= 1;
+                if(countKeyPress == 0){
+                    recentVelocity = 0;
+                }
                 break;
             case SDLK_DOWN:
             case SDLK_s:
                 removeKey(DOWN);
+                countKeyPress -= 1;
+                if(countKeyPress == 0){
+                    recentVelocity = 0;
+                }
                 break;
             default:
                 break;
@@ -90,6 +104,9 @@ void PlayerCar::removeKey(Direction direction){
 }
 
 void PlayerCar::render(){
+    if(recentVelocity != 0){
+        recentVelocity = velocity;
+    }
     // keep player a bit far from the block to make the next render dont collider with player
     // this distance equal to 10
     int addX = moveDirection == LEFT ? -10 : (moveDirection == RIGHT ? 10 : 0);

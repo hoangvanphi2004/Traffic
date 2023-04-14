@@ -14,6 +14,26 @@ void Materials::loadMaterials(){
     loadMaterial("redLight", "../Traffic/Assets/RedLight.png");
     loadMaterial("greenLight", "../Traffic/Assets/GreenLight.png");
     loadMaterial("yellowLight", "../Traffic/Assets/YellowLight.png");
+    loadMaterial("gameName", "../Traffic/Assets/GameName.png");
+
+    loadMaterial("buttonIn1", "../Traffic/Assets/ButtonIn1.png");
+    loadMaterial("buttonOut1", "../Traffic/Assets/ButtonOut1.png");
+    loadMaterial("buttonIn2", "../Traffic/Assets/ButtonIn2.png");
+    loadMaterial("buttonOut2", "../Traffic/Assets/ButtonOut2.png");
+
+    loadMaterial("pauseBoard", "../Traffic/Assets/PauseBoard.png");
+    loadMaterial("helpBoard", "../Traffic/Assets/HelpBoard.png");
+
+    generalFont = loadFont("../Traffic/Assets/GeneralFont.ttf", 50);
+    loadText("play", "Play");
+    loadText("help", "Help");
+    loadText("quit", "Quit");
+
+    generalFont = loadFont("../Traffic/Assets/GeneralFont.ttf", 25);
+    loadText("mainMenu", "Main menu");
+    loadText("resume", "Resume");
+    loadText("playAgain", "Play again");
+    loadText("back", "Back");
 }
 
 void Materials::loadMaterial(std::string materialName, std::string path){
@@ -22,6 +42,20 @@ void Materials::loadMaterial(std::string materialName, std::string path){
     SDL_SetColorKey(surface, SDL_TRUE, SDL_MapRGB(surface->format, 0, 0xFF, 0));
     materials[materialName].texture = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_QueryTexture(materials[materialName].texture, NULL, NULL, &materials[materialName].w, &materials[materialName].h);
+
+    SDL_FreeSurface(surface);
+}
+
+TTF_Font* Materials::loadFont(std::string path, int fontSize){
+    return TTF_OpenFont(path.c_str(), fontSize);
+}
+
+void Materials::loadText(std::string name, std:: string text){
+    SDL_Surface* surface;
+    SDL_Color color = {0, 0, 0};
+    surface = TTF_RenderText_Solid(generalFont, text.c_str(), color);
+    materials[name].texture = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_QueryTexture(materials[name].texture, NULL, NULL, &materials[name].w, &materials[name].h);
 
     SDL_FreeSurface(surface);
 }
@@ -45,15 +79,7 @@ void Materials::clean(){
 }
 
 void Materials::destroy(){
-    SDL_DestroyTexture(materials["background"].texture);
-    SDL_DestroyTexture(materials["playerHorizontal"].texture);
-    SDL_DestroyTexture(materials["playerVertical"].texture);
-    for(int i = 1; i <= 3; i++){
-        SDL_DestroyTexture(materials["car" + std::to_string(i) + "Horizontal", "../GoHome/Assets/Car"].texture);
-        SDL_DestroyTexture(materials["car" + std::to_string(i) + "Horizontal", "../GoHome/Assets/Car"].texture);
-        SDL_DestroyTexture(materials["block" + std::to_string(i)].texture);
+    for(auto &value: materials){
+        SDL_DestroyTexture(value.second.texture);
     }
-    SDL_DestroyTexture(materials["redLight"].texture);
-    SDL_DestroyTexture(materials["greenLight"].texture);
-    SDL_DestroyTexture(materials["yellowLight"].texture);
 }

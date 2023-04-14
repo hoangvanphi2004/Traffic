@@ -33,17 +33,19 @@ private:
     int blockRoadPositionX[4] = {0, 640, 0, 640};
     int blockRoadPositionY[4] = {360, 0, 360, 0};
 
-    int spawnTime = 300;
     int turn = 1;
     int chosenRoad;
     EnemyCar* chosenEnemyCar;
 public:
+    static int spawnTime;
+    Uint32 previousTimeSpawn;
+
     SceneComponent* nextLight;
     SceneComponent* previousLight;
+    std::list <SceneComponent*> lights;
+
     std::list <EnemyCar*> enemyCars;
     std::list <SceneComponent*> blockRectangles;
-    std::list <SceneComponent*> lights;
-    Uint32 previousTimeSpawn;
     // This component contain the main materials
     SceneComponent* background;
 public:

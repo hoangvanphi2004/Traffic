@@ -31,6 +31,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="Include/Button.h" />
 		<Unit filename="Include/Car.h" />
 		<Unit filename="Include/EnemyCar.h" />
 		<Unit filename="Include/Game.h" />
@@ -40,6 +41,7 @@
 		<Unit filename="Include/SceneComponent.h" />
 		<Unit filename="Include/SceneComponentAsset.h" />
 		<Unit filename="Include/def.h" />
+		<Unit filename="src/Button.cpp" />
 		<Unit filename="src/Car.cpp" />
 		<Unit filename="src/EnemyCar.cpp" />
 		<Unit filename="src/Game.cpp" />

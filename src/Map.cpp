@@ -1,5 +1,7 @@
 #include "../Include/Map.h"
 
+int Map::spawnTime = 400;
+
 Map::Map(SceneComponent* background, Direction direction) : background(background){
     previousTimeSpawn = 0;
     this->direction = direction;
@@ -55,7 +57,7 @@ void Map::translateView(Direction direction, int velocity){
 }
 
 bool Map::checkAnyFutureCollider(EnemyCar* enemyCar){
-    // check if in crossroad have any collider
+    // check if there are any enemycar collide each other
     for(auto otherEnemyCar: enemyCars){
         int leftCheck, rightCheck;
         if(enemyCar->moveDirection == RIGHT){
@@ -168,6 +170,8 @@ void Map::addBlock(){
         ));
         if(previousDirection != LEFT){
             lights.push_back(createLight("redLight", LEFT));
+        }else if(previousDirection != DEFAULT){
+            blockRectangles.front()->x -= 10;
         }
     }
     if(nextDirection != UP){
@@ -178,6 +182,8 @@ void Map::addBlock(){
         ));
         if(previousDirection != UP){
             lights.push_back(createLight("redLight", UP));
+        }else if(previousDirection != DEFAULT){
+            blockRectangles.front()->y -= 10;
         }
     }
     if(nextDirection != RIGHT){
@@ -188,6 +194,8 @@ void Map::addBlock(){
         ));
         if(previousDirection != RIGHT){
             lights.push_back(createLight("redLight", RIGHT));
+        }else if(previousDirection != DEFAULT){
+            blockRectangles.front()->x += 10;
         }
     }
     if(nextDirection != DOWN){
@@ -198,6 +206,8 @@ void Map::addBlock(){
         ));
         if(previousDirection != DOWN){
             lights.push_back(createLight("redLight", DOWN));
+        }else if(previousDirection != DEFAULT){
+            blockRectangles.front()->y += 10;
         }
     }
 }

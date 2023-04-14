@@ -1,6 +1,6 @@
 #include "../Include/Car.h"
 
-float Car::velocity = 2;
+float Car::velocity;
 
 Car::Car(std::string carName){
     this->carName = carName;

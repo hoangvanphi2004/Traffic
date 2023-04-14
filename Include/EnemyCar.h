@@ -12,11 +12,11 @@ class EnemyCar: public Car, public SceneComponent{
 private:
     int carType = 1;
 public:
-    EnemyCar(int x, int y, int carType, Direction moveDirection);
+    EnemyCar(float x, float y, int carType, Direction moveDirection);
 
     void run();
 
     void render();
 
-    bool futureCarCollider(EnemyCar* otherCar, int time);
+    bool futureCarCollider(EnemyCar* otherCar, float time);
 };
