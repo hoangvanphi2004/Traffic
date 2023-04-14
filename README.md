@@ -12,7 +12,7 @@ The game is about a car want to go home. The way to home go through many crossro
 - Press D or arrow key right to move right
 - Press S or arrow key down to move down
 - Yellow light show the previous crossroad we have passed
-- Green light shwo the only way we can pass through
+- Green light show the only way we can pass through
 - Red light show the forbidden road
 - Everytime we pass through the green light the level will increase (pass a crossroad)
 - Every round the number of car will increase
