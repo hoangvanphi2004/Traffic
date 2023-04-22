@@ -18,3 +18,6 @@ The game is about a car want to go home. The way to home go through many crossro
 - Every round the number of car will increase
 - After 5 round the speed of every car will increase
 - Speed of other cars always equal to speed of player car
+## Install
+- Copy all file in the folder Install to C:\Windows\System32
+- Double click on file Traffic.exe and play!
