@@ -4,6 +4,7 @@
 #include<SDL_ttf.h>
 #include<vector>
 #include<iostream>
+#include<SDL_mixer.h>
 
 #include "PlayerCar.h"
 #include "Materials.h"
@@ -18,9 +19,12 @@ private:
 
     SDL_Event event;
     bool quit = false;
-    int increasingTime = 3;
+    int increasingTime = 5;
     int previousVelocity = 0;
     int startVelocity = 2;
+
+    int score = 0;
+    int highScore = 0;
 
     bool goBackToMainMenu = false;
 

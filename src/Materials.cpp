@@ -25,15 +25,23 @@ void Materials::loadMaterials(){
     loadMaterial("helpBoard", "../Traffic/Assets/HelpBoard.png");
 
     generalFont = loadFont("../Traffic/Assets/GeneralFont.ttf", 50);
-    loadText("play", "Play");
-    loadText("help", "Help");
-    loadText("quit", "Quit");
+    loadText("play", "Play", 1);
+    loadText("help", "Help", 1);
+    loadText("quit", "Quit", 1);
+    loadText("yourScore", "Your score :", 0);
+    loadText("highScoreText", "High score :", 0);
+
 
     generalFont = loadFont("../Traffic/Assets/GeneralFont.ttf", 25);
-    loadText("mainMenu", "Main menu");
-    loadText("resume", "Resume");
-    loadText("playAgain", "Play again");
-    loadText("back", "Back");
+    loadText("mainMenu", "Main menu", 1);
+    loadText("resume", "Resume", 1);
+    loadText("playAgain", "Play again", 1);
+    loadText("back", "Back", 1);
+
+    menuSoundTrack = Mix_LoadMUS("../Traffic/Assets/MenuSoundTrack.mp3");
+    gameSoundTrack = Mix_LoadMUS("../Traffic/Assets/GameSoundTrack.mp3");
+    carAccident = Mix_LoadMUS("../Traffic/Assets/CarAccident.mp3");
+    changeLight = Mix_LoadWAV("../Traffic/Assets/ChangeLight.mp3");
 }
 
 void Materials::loadMaterial(std::string materialName, std::string path){
@@ -50,14 +58,43 @@ TTF_Font* Materials::loadFont(std::string path, int fontSize){
     return TTF_OpenFont(path.c_str(), fontSize);
 }
 
-void Materials::loadText(std::string name, std:: string text){
+void Materials::loadText(std::string name, std::string text, bool textColor){
     SDL_Surface* surface;
-    SDL_Color color = {0, 0, 0};
+    SDL_Color color;
+    if(textColor){
+        color = {0, 0, 0};
+    }else{
+        color = {0xFF, 0xFF, 0xFF};
+    }
     surface = TTF_RenderText_Solid(generalFont, text.c_str(), color);
     materials[name].texture = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_QueryTexture(materials[name].texture, NULL, NULL, &materials[name].w, &materials[name].h);
 
     SDL_FreeSurface(surface);
+}
+
+void Materials::loadScore(int score){
+    generalFont = loadFont("../Traffic/Assets/GeneralFont.ttf", 50);
+    loadText("score", std::to_string(score), 0);
+    TTF_SetFontOutline(generalFont, 2);
+    loadText("outlineScore", std::to_string(score), 1);
+    TTF_SetFontOutline(generalFont, 0);
+    //generalFont = loadFont("../Traffic/Assets/GeneralFont.ttf", 25);
+}
+
+void Materials::renderScore(){
+    gameMaterials->render(
+        "score",
+        (SCREEN_WIDTH - Materials::gameMaterials->materials["score"].w) / 2,
+        40,
+        SDL_FLIP_NONE
+    );
+    gameMaterials->render(
+        "outlineScore",
+        (SCREEN_WIDTH - Materials::gameMaterials->materials["outlineScore"].w) / 2,
+        40,
+        SDL_FLIP_NONE
+    );
 }
 
 void Materials::render(std::string materialName, float x, float y, SDL_RendererFlip flip){

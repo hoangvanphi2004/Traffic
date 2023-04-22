@@ -6,6 +6,7 @@ Game::Game(const char *title, int screen_width, int screen_height){
 
     window = SDL_CreateWindow("Traffic", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, screen_width, screen_height, SDL_WINDOW_SHOWN);
     Materials::gameMaterials->renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 4096);
 
     Materials::gameMaterials->loadMaterials();
     sceneComponentAsset = new SceneComponentAsset();
@@ -55,7 +56,10 @@ Game::Game(const char *title, int screen_width, int screen_height){
 }
 
 void Game::menuScreen(){
+    freopen("highScore.txt", "r", stdin);
+    std::cin >> highScore;
     Car::velocity = startVelocity;
+    Mix_PlayMusic(Materials::gameMaterials->menuSoundTrack, -1);
     while(!quit){
         while(SDL_PollEvent(&event) != 0){
             if(event.type == SDL_QUIT){
@@ -81,11 +85,13 @@ void Game::menuScreen(){
         quitButton->render();
 
         if(playButton->isClicked == true){
+            Mix_HaltMusic();
             sceneComponentAsset = new SceneComponentAsset();
             playerCar = new PlayerCar(sceneComponentAsset);
             runningScreen();
             sceneComponentAsset = new SceneComponentAsset();
             playerCar = new PlayerCar(sceneComponentAsset);
+            Mix_PlayMusic(Materials::gameMaterials->menuSoundTrack, -1);
             playButton->isClicked = false;
         }
         if(helpButton->isClicked == true){
@@ -130,6 +136,8 @@ void Game::helpScreen(){
 }
 
 void Game::runningScreen(){
+    score = 0;
+    Mix_PlayMusic(Materials::gameMaterials->gameSoundTrack, -1);
     while(!quit){
         while(SDL_PollEvent(&event) != 0){
             if(event.type == SDL_QUIT){
@@ -144,20 +152,30 @@ void Game::runningScreen(){
         sceneComponentAsset->renderBackground->spawnEnemyCar(playerCar->x, playerCar->y);
         Materials::gameMaterials->clean();
         if(!playerCar->checkBackground()) {
+            Mix_PlayChannel(-1, Materials::gameMaterials->changeLight, 0);
             increasingTime -= 1;
-            Map::spawnTime -= 1;
-            if(increasingTime == 0){
-                increasingTime = 3;
-                Car::velocity += 1;
+            if(Map::spawnTime > 60){
+                Map::spawnTime -= 20;
             }
+            if(increasingTime == 0){
+                increasingTime = 5;
+                Car::velocity += 1;
+                score += 1;
+            }
+            score += 1;
         }
+        Materials::gameMaterials->loadScore(score);
 
         sceneComponentAsset->render();
         playerCar->render();
+        Materials::gameMaterials->renderScore();
 
         Materials::gameMaterials->print();
         if(playerCar->checkAnyAccident()){
+            Mix_PlayMusic(Materials::gameMaterials->carAccident, 0);
             gameOverScreen();
+            Mix_HaltMusic();
+            Mix_PlayMusic(Materials::gameMaterials->gameSoundTrack, -1);
             if(goBackToMainMenu == true){
                 break;
             }
@@ -177,10 +195,12 @@ void Game::pauseScreen(){
         }
         sceneComponentAsset->renderBackground->spawnEnemyCar(playerCar->x, playerCar->y);
         Materials::gameMaterials->clean();
+        Materials::gameMaterials->loadScore(score);
 
         sceneComponentAsset->render();
         playerCar->render();
         resumeButton->render();
+        Materials::gameMaterials->renderScore();
 
         if(resumeButton->isClicked == true){
             Car::velocity = previousVelocity;
@@ -193,6 +213,7 @@ void Game::pauseScreen(){
 
 void Game::gameOverScreen(){
     Car::velocity = 0;
+    highScore = std::max(score, highScore);
     while(!quit){
         while(SDL_PollEvent(&event) != 0){
             if(event.type == SDL_QUIT){
@@ -203,12 +224,39 @@ void Game::gameOverScreen(){
         }
         sceneComponentAsset->renderBackground->spawnEnemyCar(playerCar->x, playerCar->y);
         Materials::gameMaterials->clean();
+        Materials::gameMaterials->loadText("score", std::to_string(score), 0);
+        Materials::gameMaterials->loadText("highScore", std::to_string(highScore), 0);
+
 
         sceneComponentAsset->render();
         Materials::gameMaterials->render(
             "pauseBoard",
             (SCREEN_WIDTH - Materials::gameMaterials->materials["pauseBoard"].w) / 2,
             80,
+            SDL_FLIP_NONE
+        );
+        Materials::gameMaterials->render(
+            "yourScore",
+            (SCREEN_WIDTH - Materials::gameMaterials->materials["yourScore"].w) / 2,
+            Materials::gameMaterials->materials["pauseBoard"].h / 2 - 100,
+            SDL_FLIP_NONE
+        );
+        Materials::gameMaterials->render(
+            "score",
+            (SCREEN_WIDTH - Materials::gameMaterials->materials["score"].w) / 2,
+            Materials::gameMaterials->materials["pauseBoard"].h / 2,
+            SDL_FLIP_NONE
+        );
+        Materials::gameMaterials->render(
+            "highScoreText",
+            (SCREEN_WIDTH - Materials::gameMaterials->materials["highScoreText"].w) / 2,
+            Materials::gameMaterials->materials["pauseBoard"].h / 2 + 100,
+            SDL_FLIP_NONE
+        );
+        Materials::gameMaterials->render(
+            "highScore",
+            (SCREEN_WIDTH - Materials::gameMaterials->materials["highScore"].w) / 2,
+            Materials::gameMaterials->materials["pauseBoard"].h / 2 + 200,
             SDL_FLIP_NONE
         );
         playAgainButton->render();
@@ -219,6 +267,7 @@ void Game::gameOverScreen(){
             playerCar = new PlayerCar(sceneComponentAsset);
             playAgainButton->isClicked = false;
             Car::velocity = startVelocity;
+            score = 0;
             break;
         }
         if(mainMenuButton->isClicked == true){
@@ -232,6 +281,8 @@ void Game::gameOverScreen(){
 }
 
 void Game::close(){
+    freopen("highScore.txt", "w", stdout);
+    std::cout << highScore;
     Materials::gameMaterials->destroy();
 
     SDL_DestroyWindow(window);

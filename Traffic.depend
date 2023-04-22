@@ -105,7 +105,7 @@
 	"Materials.h"
 	"def.h"
 
-1681460099 d:\programming\laptrinhnangcao\traffic\include\materials.h
+1682149105 d:\programming\laptrinhnangcao\traffic\include\materials.h
 	<iostream>
 	<string>
 	<vector>
@@ -113,16 +113,18 @@
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_ttf.h>
+	<SDL_mixer.h>
 	"def.h"
 
-1681477912 source:d:\programming\laptrinhnangcao\traffic\src\game.cpp
+1682150157 source:d:\programming\laptrinhnangcao\traffic\src\game.cpp
 	"../Include/Game.h"
 
-1681477254 d:\programming\laptrinhnangcao\traffic\include\game.h
+1682150148 d:\programming\laptrinhnangcao\traffic\include\game.h
 	<SDL.h>
 	<SDL_ttf.h>
 	<vector>
 	<iostream>
+	<SDL_mixer.h>
 	"PlayerCar.h"
 	"Materials.h"
 	"Car.h"
@@ -140,7 +142,7 @@
 	"SceneComponentAsset.h"
 	"SceneComponent.h"
 
-1681460616 source:d:\programming\laptrinhnangcao\traffic\src\main.cpp
+1682150318 source:d:\programming\laptrinhnangcao\traffic\src\main.cpp
 	"../Include/Game.h"
 	"../Include/def.h"
 
@@ -155,7 +157,7 @@
 	<iostream>
 	"def.h"
 
-1681477813 source:d:\programming\laptrinhnangcao\traffic\src\materials.cpp
+1682149153 source:d:\programming\laptrinhnangcao\traffic\src\materials.cpp
 	"../Include/Materials.h"
 
 1680790484 source:d:\programming\laptrinhnangcao\traffic\src\viewcomponent.cpp
