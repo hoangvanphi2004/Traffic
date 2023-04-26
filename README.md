@@ -1,3 +1,6 @@
+<div align="">
+  <img src="https://github.com/hoangvanphi2004/Traffic/blob/main/GameName.png?raw=true">
+</div>
 # Traffic
 The game is about a car want to go home. The way to home go through many crossroads and a lot of moving cars. We need to avoid any accident to get home safe.
 ## Rule
