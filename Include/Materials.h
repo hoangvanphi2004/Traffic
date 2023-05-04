@@ -1,16 +1,12 @@
 #pragma once
 
-#include<iostream>
 #include<string>
-#include<vector>
 #include<map>
-#include<SDL.h>
 #include<SDL_image.h>
 #include<SDL_ttf.h>
 #include<SDL_mixer.h>
 
 #include "def.h"
-
 struct Material{
     SDL_Texture* texture;
     int w, h;
@@ -23,10 +19,6 @@ public:
     SDL_Renderer* renderer;
     std::map<std::string, Material> materials;
     TTF_Font* generalFont;
-    Mix_Music* menuSoundTrack;
-    Mix_Music* gameSoundTrack;
-    Mix_Music* carAccident;
-    Mix_Chunk* changeLight;
 public:
     void loadMaterials();
 

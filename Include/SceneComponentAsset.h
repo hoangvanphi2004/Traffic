@@ -15,18 +15,19 @@ public:
     SceneComponentAsset();
 
     void render();
+    // This method make other stuff move relative to the player
     void translateView(Direction direction, int velocity);
 
+    // Create new map every time the player get out of recent map
     void createNewLeft();
     void createNewRight();
     void createNewTop();
     void createNewBottom();
 
+    // Render map depend on the moving direction of the player
     void goLeft();
     void goRight();
     void goUp();
     void goDown();
-
-    void addVelocity();
 };
 

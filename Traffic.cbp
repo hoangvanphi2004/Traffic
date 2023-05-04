@@ -41,6 +41,7 @@
 		<Unit filename="Include/Car.h" />
 		<Unit filename="Include/EnemyCar.h" />
 		<Unit filename="Include/Game.h" />
+		<Unit filename="Include/GeneralThings.h" />
 		<Unit filename="Include/Map.h" />
 		<Unit filename="Include/Materials.h" />
 		<Unit filename="Include/PlayerCar.h" />
@@ -51,6 +52,7 @@
 		<Unit filename="src/Car.cpp" />
 		<Unit filename="src/EnemyCar.cpp" />
 		<Unit filename="src/Game.cpp" />
+		<Unit filename="src/GeneralThings.cpp" />
 		<Unit filename="src/Map.cpp" />
 		<Unit filename="src/Materials.cpp" />
 		<Unit filename="src/PlayerCar.cpp" />

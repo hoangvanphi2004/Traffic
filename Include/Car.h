@@ -4,7 +4,6 @@
 #include<iostream>
 
 #include "Materials.h"
-#include "def.h"
 
 class Car{
 public:

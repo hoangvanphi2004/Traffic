@@ -24,6 +24,7 @@ public:
     PlayerCar(SceneComponentAsset* sceneComponents);
 
     void movement(SDL_Event& event);
+    // Some more method to make player movement more smoth
     void addKey(Direction direction);
     void removeKey(Direction direction);
 
@@ -33,6 +34,7 @@ public:
     bool checkAnyAccident();
     bool enemyCarCollider(EnemyCar* enemyCar);
 
+    // This methods check if we get out of recent map
     bool checkBackground();
     bool sceneComponentCollider(SceneComponent* sceneComponent);
 };

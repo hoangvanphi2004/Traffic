@@ -38,10 +38,6 @@ void Materials::loadMaterials(){
     loadText("playAgain", "Play again", 1);
     loadText("back", "Back", 1);
 
-    menuSoundTrack = Mix_LoadMUS("../Traffic/Assets/MenuSoundTrack.mp3");
-    gameSoundTrack = Mix_LoadMUS("../Traffic/Assets/GameSoundTrack.mp3");
-    carAccident = Mix_LoadMUS("../Traffic/Assets/CarAccident.mp3");
-    changeLight = Mix_LoadWAV("../Traffic/Assets/ChangeLight.mp3");
 }
 
 void Materials::loadMaterial(std::string materialName, std::string path){
@@ -79,7 +75,6 @@ void Materials::loadScore(int score){
     TTF_SetFontOutline(generalFont, 2);
     loadText("outlineScore", std::to_string(score), 1);
     TTF_SetFontOutline(generalFont, 0);
-    //generalFont = loadFont("../Traffic/Assets/GeneralFont.ttf", 25);
 }
 
 void Materials::renderScore(){

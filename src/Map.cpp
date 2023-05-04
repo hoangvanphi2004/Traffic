@@ -12,7 +12,7 @@ Map::Map(SceneComponent* background, Direction direction) : background(backgroun
     blockRectangles.push_back(new SceneComponent(background->x + background->getWidth() - blockRectangles.front()->getWidth(), background->y + background->getHeight() - blockRectangles.front()->getHeight(), "block1"));
     blockRoadPositionX[2] = background->getWidth() - 10;
     blockRoadPositionY[3] = background->getHeight() - 10;
-};
+}
 
 void Map::renderBackground(){
     background->render();
@@ -57,7 +57,6 @@ void Map::translateView(Direction direction, int velocity){
 }
 
 bool Map::checkAnyFutureCollider(EnemyCar* enemyCar){
-    // check if there are any enemycar collide each other
     for(auto otherEnemyCar: enemyCars){
         int leftCheck, rightCheck;
         if(enemyCar->moveDirection == RIGHT){

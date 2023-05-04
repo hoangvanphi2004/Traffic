@@ -7,19 +7,19 @@
 
 #include "def.h"
 #include "EnemyCar.h"
-#include "SceneComponent.h"
 
 class Map{
 public:
-    // This direction relative to the center background screen
+    // This direction relative to the center map screen
     //
     //                     up
     //                      ^
     //                      |
-    //     left <-- center background --> right
+    //     left <-- centre map --> right
     //                      |
     //                      v
     //                    down
+    // DEFAULT mean its the centre map
     Direction direction;
     Direction previousDirection = DEFAULT;
     Direction nextDirection = DEFAULT;
@@ -30,6 +30,7 @@ private:
     int right[2] = {440, 350};
     int down[6] ={962, 1014, 1066, 1118, 1170, 1222};
 
+    // corners position of the map
     int blockRoadPositionX[4] = {0, 640, 0, 640};
     int blockRoadPositionY[4] = {360, 0, 360, 0};
 
@@ -46,7 +47,6 @@ public:
 
     std::list <EnemyCar*> enemyCars;
     std::list <SceneComponent*> blockRectangles;
-    // This component contain the main materials
     SceneComponent* background;
 public:
     Map(SceneComponent* background, Direction direction);
@@ -55,6 +55,7 @@ public:
     void renderSceneComponents();
     void translateView(Direction direction, int velocity);
 
+    // Check if a car can be spawned or not
     bool checkAnyFutureCollider(EnemyCar* enemyCar);
 
     void createEnemyCar(int roadLanes, int x, int y, Direction direction);

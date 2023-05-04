@@ -1,17 +1,11 @@
 #pragma once
 
 #include<SDL.h>
-#include<SDL_ttf.h>
-#include<vector>
 #include<iostream>
-#include<SDL_mixer.h>
 
 #include "PlayerCar.h"
-#include "Materials.h"
-#include "Car.h"
-#include "EnemyCar.h"
-#include "Map.h"
-#include "Button.h"
+#include "SceneComponentAsset.h"
+#include "GeneralThings.h"
 
 class Game{
 private:
@@ -19,6 +13,8 @@ private:
 
     SDL_Event event;
     bool quit = false;
+
+    //This variable count number of round from the last round that car speed increase
     int increasingTime = 5;
     int previousVelocity = 0;
     int startVelocity = 2;
@@ -30,13 +26,7 @@ private:
 
     PlayerCar* playerCar;
     SceneComponentAsset* sceneComponentAsset;
-    Button* playButton;
-    Button* helpButton;
-    Button* quitButton;
-    Button* mainMenuButton;
-    Button* resumeButton;
-    Button* playAgainButton;
-    Button* backButton;
+
 public:
     Game(const char *title, int screen_with, int screen_height);
 

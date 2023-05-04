@@ -9,65 +9,24 @@ Game::Game(const char *title, int screen_width, int screen_height){
     Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 4096);
 
     Materials::gameMaterials->loadMaterials();
+    GeneralThings::gameGeneralThings->loadGeneralThings();
     sceneComponentAsset = new SceneComponentAsset();
     playerCar = new PlayerCar(sceneComponentAsset);
-    playButton = new Button(
-        "play",
-        (SCREEN_WIDTH - Materials::gameMaterials->materials["buttonIn1"].w) / 2,
-        240,
-        1
-    );
-    helpButton = new Button(
-        "help",
-        (SCREEN_WIDTH - Materials::gameMaterials->materials["buttonIn1"].w) / 2,
-        400,
-        1
-    );
-    quitButton = new Button(
-        "quit",
-        (SCREEN_WIDTH - Materials::gameMaterials->materials["buttonIn1"].w) / 2,
-        560,
-        1
-    );
-    resumeButton = new Button(
-        "resume",
-        (SCREEN_WIDTH - Materials::gameMaterials->materials["buttonIn2"].w) / 2,
-        (SCREEN_HEIGHT - Materials::gameMaterials->materials["buttonIn2"].h) / 2 + 100,
-        2
-    );
-    playAgainButton = new Button(
-        "playAgain",
-        40,
-        SCREEN_HEIGHT - Materials::gameMaterials->materials["buttonIn2"].h - 40,
-        2
-    );
-    mainMenuButton = new Button(
-        "mainMenu",
-        SCREEN_WIDTH - Materials::gameMaterials->materials["buttonIn2"].w - 40,
-        SCREEN_HEIGHT - Materials::gameMaterials->materials["buttonIn2"].h - 40,
-        2
-    );
-    backButton = new Button(
-        "back",
-        SCREEN_WIDTH - Materials::gameMaterials->materials["buttonIn2"].w - 40,
-        SCREEN_HEIGHT - Materials::gameMaterials->materials["buttonIn2"].h - 40,
-        2
-    );
 }
 
 void Game::menuScreen(){
     freopen("highScore.txt", "r", stdin);
     std::cin >> highScore;
     Car::velocity = startVelocity;
-    Mix_PlayMusic(Materials::gameMaterials->menuSoundTrack, -1);
+    Mix_PlayMusic(GeneralThings::gameGeneralThings->menuSoundTrack, -1);
     while(!quit){
         while(SDL_PollEvent(&event) != 0){
             if(event.type == SDL_QUIT){
                 quit = true;
             }
-            playButton->handleEvent(&event);
-            helpButton->handleEvent(&event);
-            quitButton->handleEvent(&event);
+            GeneralThings::gameGeneralThings->playButton->handleEvent(&event);
+            GeneralThings::gameGeneralThings->helpButton->handleEvent(&event);
+            GeneralThings::gameGeneralThings->quitButton->handleEvent(&event);
         }
         goBackToMainMenu = false;
         playerCar->x = SCREEN_WIDTH / 2;
@@ -75,32 +34,34 @@ void Game::menuScreen(){
         sceneComponentAsset->renderBackground->spawnEnemyCar(playerCar->x, playerCar->y);
         Materials::gameMaterials->clean();
 
+        //Render Part
         sceneComponentAsset->render();
         Materials::gameMaterials->render(
             "gameName",
             (SCREEN_WIDTH - Materials::gameMaterials->materials["gameName"].w) / 2,
             50, SDL_FLIP_NONE);
-        playButton->render();
-        helpButton->render();
-        quitButton->render();
+        GeneralThings::gameGeneralThings->playButton->render();
+        GeneralThings::gameGeneralThings->helpButton->render();
+        GeneralThings::gameGeneralThings->quitButton->render();
 
-        if(playButton->isClicked == true){
+        //Interaction
+        if(GeneralThings::gameGeneralThings->playButton->isClicked == true){
             Mix_HaltMusic();
             sceneComponentAsset = new SceneComponentAsset();
             playerCar = new PlayerCar(sceneComponentAsset);
             runningScreen();
             sceneComponentAsset = new SceneComponentAsset();
             playerCar = new PlayerCar(sceneComponentAsset);
-            Mix_PlayMusic(Materials::gameMaterials->menuSoundTrack, -1);
-            playButton->isClicked = false;
+            Mix_PlayMusic(GeneralThings::gameGeneralThings->menuSoundTrack, -1);
+            GeneralThings::gameGeneralThings->playButton->isClicked = false;
         }
-        if(helpButton->isClicked == true){
+        if(GeneralThings::gameGeneralThings->helpButton->isClicked == true){
             helpScreen();
-            helpButton->isClicked = false;
+            GeneralThings::gameGeneralThings->helpButton->isClicked = false;
         }
-        if(quitButton->isClicked == true){
+        if(GeneralThings::gameGeneralThings->quitButton->isClicked == true){
             close();
-            quitButton->isClicked = false;
+            GeneralThings::gameGeneralThings->quitButton->isClicked = false;
         }
         Materials::gameMaterials->print();
     }
@@ -113,11 +74,12 @@ void Game::helpScreen(){
             if(event.type == SDL_QUIT){
                 quit = true;
             }
-            backButton->handleEvent(&event);
+            GeneralThings::gameGeneralThings->backButton->handleEvent(&event);
         }
         sceneComponentAsset->renderBackground->spawnEnemyCar(playerCar->x, playerCar->y);
         Materials::gameMaterials->clean();
 
+        //Render Part
         sceneComponentAsset->render();
         Materials::gameMaterials->render(
             "helpBoard",
@@ -125,10 +87,11 @@ void Game::helpScreen(){
             40,
             SDL_FLIP_NONE
         );
-        backButton->render();
+        GeneralThings::gameGeneralThings->backButton->render();
 
-        if(backButton->isClicked == true){
-            backButton->isClicked = false;
+        //Interaction
+        if(GeneralThings::gameGeneralThings->backButton->isClicked == true){
+            GeneralThings::gameGeneralThings->backButton->isClicked = false;
             break;
         }
         Materials::gameMaterials->print();
@@ -137,7 +100,7 @@ void Game::helpScreen(){
 
 void Game::runningScreen(){
     score = 0;
-    Mix_PlayMusic(Materials::gameMaterials->gameSoundTrack, -1);
+    Mix_PlayMusic(GeneralThings::gameGeneralThings->gameSoundTrack, -1);
     while(!quit){
         while(SDL_PollEvent(&event) != 0){
             if(event.type == SDL_QUIT){
@@ -151,8 +114,10 @@ void Game::runningScreen(){
         }
         sceneComponentAsset->renderBackground->spawnEnemyCar(playerCar->x, playerCar->y);
         Materials::gameMaterials->clean();
+
+        // Core game logic
         if(!playerCar->checkBackground()) {
-            Mix_PlayChannel(-1, Materials::gameMaterials->changeLight, 0);
+            Mix_PlayChannel(-1, GeneralThings::gameGeneralThings->changeLight, 0);
             increasingTime -= 1;
             if(Map::spawnTime > 60){
                 Map::spawnTime -= 20;
@@ -166,16 +131,18 @@ void Game::runningScreen(){
         }
         Materials::gameMaterials->loadScore(score);
 
+        //Render Part
         sceneComponentAsset->render();
         playerCar->render();
         Materials::gameMaterials->renderScore();
 
+        //Interaction
         Materials::gameMaterials->print();
         if(playerCar->checkAnyAccident()){
-            Mix_PlayMusic(Materials::gameMaterials->carAccident, 0);
+            Mix_PlayMusic(GeneralThings::gameGeneralThings->carAccident, 0);
             gameOverScreen();
             Mix_HaltMusic();
-            Mix_PlayMusic(Materials::gameMaterials->gameSoundTrack, -1);
+            Mix_PlayMusic(GeneralThings::gameGeneralThings->gameSoundTrack, -1);
             if(goBackToMainMenu == true){
                 break;
             }
@@ -191,20 +158,22 @@ void Game::pauseScreen(){
             if(event.type == SDL_QUIT){
                 quit = true;
             }
-            resumeButton->handleEvent(&event);
+            GeneralThings::gameGeneralThings->resumeButton->handleEvent(&event);
         }
         sceneComponentAsset->renderBackground->spawnEnemyCar(playerCar->x, playerCar->y);
         Materials::gameMaterials->clean();
         Materials::gameMaterials->loadScore(score);
 
+        //Render Part
         sceneComponentAsset->render();
         playerCar->render();
-        resumeButton->render();
+        GeneralThings::gameGeneralThings->resumeButton->render();
         Materials::gameMaterials->renderScore();
 
-        if(resumeButton->isClicked == true){
+        //Interaction
+        if(GeneralThings::gameGeneralThings->resumeButton->isClicked == true){
             Car::velocity = previousVelocity;
-            resumeButton->isClicked = false;
+            GeneralThings::gameGeneralThings->resumeButton->isClicked = false;
             break;
         }
         Materials::gameMaterials->print();
@@ -219,15 +188,15 @@ void Game::gameOverScreen(){
             if(event.type == SDL_QUIT){
                 quit = true;
             }
-            playAgainButton->handleEvent(&event);
-            mainMenuButton->handleEvent(&event);
+            GeneralThings::gameGeneralThings->playAgainButton->handleEvent(&event);
+            GeneralThings::gameGeneralThings->mainMenuButton->handleEvent(&event);
         }
         sceneComponentAsset->renderBackground->spawnEnemyCar(playerCar->x, playerCar->y);
         Materials::gameMaterials->clean();
         Materials::gameMaterials->loadText("score", std::to_string(score), 0);
         Materials::gameMaterials->loadText("highScore", std::to_string(highScore), 0);
 
-
+        //Render Part
         sceneComponentAsset->render();
         Materials::gameMaterials->render(
             "pauseBoard",
@@ -259,20 +228,21 @@ void Game::gameOverScreen(){
             Materials::gameMaterials->materials["pauseBoard"].h / 2 + 200,
             SDL_FLIP_NONE
         );
-        playAgainButton->render();
-        mainMenuButton->render();
+        GeneralThings::gameGeneralThings->playAgainButton->render();
+        GeneralThings::gameGeneralThings->mainMenuButton->render();
 
-        if(playAgainButton->isClicked == true){
+        //Interaction
+        if(GeneralThings::gameGeneralThings->playAgainButton->isClicked == true){
             sceneComponentAsset = new SceneComponentAsset();
             playerCar = new PlayerCar(sceneComponentAsset);
-            playAgainButton->isClicked = false;
+            GeneralThings::gameGeneralThings->playAgainButton->isClicked = false;
             Car::velocity = startVelocity;
             score = 0;
             break;
         }
-        if(mainMenuButton->isClicked == true){
+        if(GeneralThings::gameGeneralThings->mainMenuButton->isClicked == true){
             goBackToMainMenu = true;
-            mainMenuButton->isClicked = false;
+            GeneralThings::gameGeneralThings->mainMenuButton->isClicked = false;
             Car::velocity = startVelocity;
             break;
         }

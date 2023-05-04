@@ -107,7 +107,7 @@ void PlayerCar::render(){
     if(recentVelocity != 0){
         recentVelocity = velocity;
     }
-    // keep player a bit far from the block to make the next render dont collider with player
+    // keep player a bit far from the block to make the next render doesnt collider with player
     // this distance equal to 10
     int addX = moveDirection == LEFT ? -10 : (moveDirection == RIGHT ? 10 : 0);
     int addY = moveDirection == UP ? -10 : (moveDirection == DOWN ? 10 : 0);
@@ -116,6 +116,7 @@ void PlayerCar::render(){
     this->y = (SCREEN_HEIGHT - h) / 2 + addY;
     if(moveDirection != DEFAULT){
         sceneComponents->translateView(moveDirection, recentVelocity);
+        //Check if player can make the next move
         if(checkBlock()){
             if(moveDirection == LEFT){
                 sceneComponents->translateView(opposite(moveDirection), recentBlock->x + recentBlock->getWidth() - x);
