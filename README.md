@@ -27,8 +27,11 @@ After a hard working day, you are so excited to go home as soon as possible. But
 
 ## Credit
 - https://www.fontspace.com/flappy-bird-font-f21349 for a beautiful font 
-- https://pixabay.com/ for a some crazy sound effect
+- https://pixabay.com/ for some crazy sound effects
 - https://www.youtube.com/watch?v=yLX4ljnnQoY for a chilling soundtrack
-- Google for The beautiful car image
+- Google for some beautiful car images
 - And me, the one who make this game.
+## Contact
+- fb: https://www.facebook.com/hoangvanphi2004
+- email: hoangvanphi2004@gmail.com
 
