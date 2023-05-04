@@ -1,5 +1,5 @@
 <div align="">
-  <img src="https://github.com/hoangvanphi2004/Traffic/blob/main/GameName.png">
+  <img src="[https://github.com/hoangvanphi2004/Traffic/blob/main/GameName.png](https://github.com/hoangvanphi2004/Traffic/blob/main/GameIntroduce/GameName.png?raw=true)">
 </div>
 
 # Traffic
