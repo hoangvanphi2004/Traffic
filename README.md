@@ -3,25 +3,32 @@
 </div>
 
 # Traffic
-The game is about a car want to go home. The way to home go through many crossroads and a lot of moving cars. We need to avoid any accident to get home safe.
+## Description
+After a hard working day, you are so excited to go home as soon as possible. But you suddenly remembering its five oclock and at this time the road lead to your home, "Cau Giay" is pretty ... But you talk to yourself: "I can do it!" and take your bag go straight to your car. And now, you have to face with the dizzying traffic in the town. Can you get to your home ? Let go and see it !
 ## Rule
-- Drive the yellow car to avoid other car
+- Your car is the yellow car and you need to avoid other car 
 - Any accident will make you lose
 - Find the right way to go home by finding the green light
-- Car speed will increase every time you pass a crossroad
-- And number of car will increase too
 ## Instruction
-- Press W or arrow key up to move up
-- Press A or arrow key left to move left
-- Press D or arrow key right to move right
-- Press S or arrow key down to move down
+- Moving by press A, W, D, S or arrow keys.
 - Yellow light show the previous crossroad we have passed
 - Green light show the only way we can pass through
-- Red light show the forbidden road
+- Red light show the forbidden road and you cant pass through it
+## Install
+- Copy all file in the folder Install to C:\Windows\System32
+- Double click on file Traffic.exe and play!
+## Feature
 - Everytime we pass through the green light the level will increase (pass a crossroad)
 - Every round the number of car will increase
 - After 5 round the speed of every car will increase
 - Speed of other cars always equal to speed of player car
-## Install
-- Copy all file in the folder Install to C:\Windows\System32
-- Double click on file Traffic.exe and play!
+- There are some bonus gift across the journey (Im updating)
+## Some image about the game
+
+## Credit
+- https://www.fontspace.com/flappy-bird-font-f21349 for a beautiful font 
+- https://pixabay.com/ for a some crazy sound effect
+- https://www.youtube.com/watch?v=yLX4ljnnQoY for a chilling soundtrack
+- Google for The beautiful car image
+- And me, the one who make this game.
+
