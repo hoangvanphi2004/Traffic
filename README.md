@@ -35,8 +35,10 @@ After a hard working day, you are so excited to go home as soon as possible. But
 - https://pixabay.com/ for some crazy sound effects
 - https://www.youtube.com/watch?v=yLX4ljnnQoY for a chilling soundtrack
 - Google for some beautiful car images
+- Lazyfoo for the instruction to make a 2D game. You can also learn it by click on this link https://lazyfoo.net/tutorials/SDL/index.php
 - And me, the one who make this game.
 ## Contact
+If you have any idea or find any issue about my game. Please contact me!
 - fb: https://www.facebook.com/hoangvanphi2004
 - email: hoangvanphi2004@gmail.com
 <div align="center">
