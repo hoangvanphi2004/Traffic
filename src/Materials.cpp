@@ -14,6 +14,10 @@ void Materials::loadMaterials(){
     loadMaterial("redLight", "../Traffic/Assets/RedLight.png");
     loadMaterial("greenLight", "../Traffic/Assets/GreenLight.png");
     loadMaterial("yellowLight", "../Traffic/Assets/YellowLight.png");
+
+    loadMaterial("hole", "../Traffic/Assets/Hole.png");
+    loadMaterial("coin", "../Traffic/Assets/Coin.png");
+
     loadMaterial("gameName", "../Traffic/Assets/GameName.png");
 
     loadMaterial("buttonIn1", "../Traffic/Assets/ButtonIn1.png");

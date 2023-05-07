@@ -37,4 +37,5 @@ public:
     // This methods check if we get out of recent map
     bool checkBackground();
     bool sceneComponentCollider(SceneComponent* sceneComponent);
+    bool checkCandyCollider(std::string candyName);
 };

@@ -153,6 +153,11 @@ bool PlayerCar::checkAnyAccident(){
             return true;
         }
     }
+    for(auto holeOrCandy: sceneComponents->renderBackground->holesAndCandys){
+        if(holeOrCandy->sceneComponentName == "hole" && sceneComponentCollider(holeOrCandy)){
+            return true;
+        }
+    }
     return false;
 }
 
@@ -181,7 +186,6 @@ bool PlayerCar::checkBackground(){
                 }
             }
         }
-        sceneComponents->renderBackground->spawnBlockRoads();
         return false;
     }
     return true;
@@ -191,4 +195,13 @@ bool PlayerCar::sceneComponentCollider(SceneComponent* sceneComponent){
     if(x >= sceneComponent->x + sceneComponent->getWidth() || x + w <= sceneComponent->x) return false;
     if(y >= sceneComponent->y + sceneComponent->getHeight() || y + h <= sceneComponent->y) return false;
     return true;
+}
+
+bool PlayerCar::checkCandyCollider(std::string candyName){
+    for(auto holeOrCandy: sceneComponents->renderBackground->holesAndCandys){
+        if(holeOrCandy->sceneComponentName == candyName && sceneComponentCollider(holeOrCandy) && sceneComponents->renderBackground->candyCoin == true){
+            return true;
+        }
+    }
+    return false;
 }

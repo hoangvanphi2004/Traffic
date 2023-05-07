@@ -46,6 +46,7 @@ SceneComponentAsset::SceneComponentAsset(){
         ),
         DOWN
     );
+
     renderBackground->spawnBlockRoads();
 }
 
@@ -110,20 +111,27 @@ void SceneComponentAsset::createNewBottom(){
     );
 }
 
-void SceneComponentAsset::goLeft(){
-    // Center -> Right
-    aroundRenderBackground[2] = renderBackground;
-    aroundRenderBackground[2]->direction = RIGHT;
+void SceneComponentAsset::push(int firstPoint, int secondPoint, Direction direction){
+    // an example : If we go left (go from right to left) -> first point is right, second point is left
 
-    // Left -> Center
-    renderBackground = aroundRenderBackground[0];
+    // Center -> First point
+    aroundRenderBackground[firstPoint] = renderBackground;
+    aroundRenderBackground[firstPoint]->direction = opposite(direction);
+
+    // Second point -> Center
+    renderBackground = aroundRenderBackground[secondPoint];
     renderBackground->direction = DEFAULT;
 
     // Move old renderBackground data to new renderBackground data
-    renderBackground->enemyCars = aroundRenderBackground[2]->enemyCars;
-    aroundRenderBackground[2]->enemyCars.clear();
-    renderBackground->previousDirection = RIGHT;
-    renderBackground->previousLight = aroundRenderBackground[2]->nextLight;
+    renderBackground->enemyCars = aroundRenderBackground[firstPoint]->enemyCars;
+    aroundRenderBackground[firstPoint]->enemyCars.clear();
+    renderBackground->previousDirection = opposite(direction);
+    renderBackground->previousLight = aroundRenderBackground[firstPoint]->nextLight;
+    renderBackground->spawnBlockRoads();
+}
+
+void SceneComponentAsset::goLeft(){
+    push(2, 0, LEFT);
 
     // Create new left
     createNewLeft();
@@ -134,19 +142,7 @@ void SceneComponentAsset::goLeft(){
 }
 
 void SceneComponentAsset::goRight(){
-    // Center -> Left
-    aroundRenderBackground[0] = renderBackground;
-    aroundRenderBackground[0]->direction = LEFT;
-
-    // Right -> Center
-    renderBackground = aroundRenderBackground[2];
-    renderBackground->direction = DEFAULT;
-
-    // Move old renderBackground data to new renderBackground data
-    renderBackground->enemyCars = aroundRenderBackground[0]->enemyCars;
-    aroundRenderBackground[0]->enemyCars.clear();
-    renderBackground->previousDirection = LEFT;
-    renderBackground->previousLight = aroundRenderBackground[0]->nextLight;
+    push(0, 2, RIGHT);
 
     // Create new right
     createNewRight();
@@ -157,19 +153,7 @@ void SceneComponentAsset::goRight(){
 }
 
 void SceneComponentAsset::goUp(){
-    // Center -> Bottom
-    aroundRenderBackground[3] = renderBackground;
-    aroundRenderBackground[3]->direction = DOWN;
-
-    // Top -> Center
-    renderBackground = aroundRenderBackground[1];
-    renderBackground->direction = DEFAULT;
-
-    // Move old renderBackground data to new renderBackground data
-    renderBackground->enemyCars = aroundRenderBackground[3]->enemyCars;
-    aroundRenderBackground[3]->enemyCars.clear();
-    renderBackground->previousDirection = DOWN;
-    renderBackground->previousLight = aroundRenderBackground[3]->nextLight;
+    push(3, 1, UP);
 
     // Create new left
     createNewLeft();
@@ -180,19 +164,7 @@ void SceneComponentAsset::goUp(){
 }
 
 void SceneComponentAsset::goDown(){
-    // Center -> Top
-    aroundRenderBackground[1] = renderBackground;
-    aroundRenderBackground[1]->direction = UP;
-
-    // Bottom -> Center
-    renderBackground = aroundRenderBackground[3];
-    renderBackground->direction = DEFAULT;
-
-    // Move old renderBackground data to new renderBackground data
-    renderBackground->enemyCars = aroundRenderBackground[1]->enemyCars;
-    aroundRenderBackground[1]->enemyCars.clear();
-    renderBackground->previousDirection = UP;
-    renderBackground->previousLight = aroundRenderBackground[1]->nextLight;
+    push(1, 3, DOWN);
 
     // Create new left
     createNewLeft();
@@ -200,4 +172,10 @@ void SceneComponentAsset::goDown(){
     createNewRight();
     // Create new bottom
     createNewBottom();
+}
+
+void SceneComponentAsset::turnCandyOn(std::string candyName){
+    if(candyName == "coin"){
+        aroundRenderBackground[changeDirectionToNumber(renderBackground->nextDirection)]->candyCoin = true;
+    }
 }

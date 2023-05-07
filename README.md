@@ -1,5 +1,5 @@
-<div align="">
-  <img src="https://github.com/hoangvanphi2004/Traffic/blob/main/GameName.png">
+<div align="center">
+  <img src="https://github.com/hoangvanphi2004/Traffic/blob/main/GameIntroduce/GameName.png">
 </div>
 
 # Traffic
@@ -24,6 +24,11 @@ After a hard working day, you are so excited to go home as soon as possible. But
 - Speed of other cars always equal to speed of player car
 - There are some bonus gift across the journey (Im updating)
 ## Some image about the game
+<div align="">
+  <img src="https://github.com/hoangvanphi2004/Traffic/blob/main/GameIntroduce/img1.png">
+  <img src="https://github.com/hoangvanphi2004/Traffic/blob/main/GameIntroduce/img2.png">
+  <img src="https://github.com/hoangvanphi2004/Traffic/blob/main/GameIntroduce/img3.png">
+</div>
 
 ## Credit
 - https://www.fontspace.com/flappy-bird-font-f21349 for a beautiful font 
@@ -34,4 +39,6 @@ After a hard working day, you are so excited to go home as soon as possible. But
 ## Contact
 - fb: https://www.facebook.com/hoangvanphi2004
 - email: hoangvanphi2004@gmail.com
-
+<div align="center">
+  <h1> --- Thanks for visiting my game --- </h1>
+ </div>

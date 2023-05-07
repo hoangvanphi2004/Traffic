@@ -24,10 +24,16 @@ public:
     void createNewTop();
     void createNewBottom();
 
+    // Push everything to new map
+    void push(int firstPoint, int secondPoint, Direction direction);
+
     // Render map depend on the moving direction of the player
     void goLeft();
     void goRight();
     void goUp();
     void goDown();
+
+    // Make the next map have candy
+    void turnCandyOn(std::string candyName);
 };
 

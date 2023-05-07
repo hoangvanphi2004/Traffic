@@ -116,11 +116,18 @@ void Game::runningScreen(){
         Materials::gameMaterials->clean();
 
         // Core game logic
+        if(playerCar->checkCandyCollider("coin")){
+            score += 3;
+            sceneComponentAsset->renderBackground->candyCoin = false;
+        }
         if(!playerCar->checkBackground()) {
             Mix_PlayChannel(-1, GeneralThings::gameGeneralThings->changeLight, 0);
             increasingTime -= 1;
             if(Map::spawnTime > 60){
                 Map::spawnTime -= 20;
+            }
+            if(increasingTime % 2 == 0){
+                sceneComponentAsset->turnCandyOn("coin");
             }
             if(increasingTime == 0){
                 increasingTime = 5;

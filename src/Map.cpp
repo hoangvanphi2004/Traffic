@@ -1,6 +1,7 @@
 #include "../Include/Map.h"
 
 int Map::spawnTime = 400;
+int Map::minimumNumberOfHoles = 3;
 
 Map::Map(SceneComponent* background, Direction direction) : background(background){
     previousTimeSpawn = 0;
@@ -10,12 +11,22 @@ Map::Map(SceneComponent* background, Direction direction) : background(backgroun
     blockRectangles.push_back(new SceneComponent(background->x + background->getWidth() - blockRectangles.front()->getWidth(), background->y, "block1"));
     blockRectangles.push_back(new SceneComponent(background->x, background->y + background->getHeight() - blockRectangles.front()->getHeight(), "block1"));
     blockRectangles.push_back(new SceneComponent(background->x + background->getWidth() - blockRectangles.front()->getWidth(), background->y + background->getHeight() - blockRectangles.front()->getHeight(), "block1"));
+
     blockRoadPositionX[2] = background->getWidth() - 10;
     blockRoadPositionY[3] = background->getHeight() - 10;
+    createHolesAndCandys();
 }
 
 void Map::renderBackground(){
     background->render();
+    for(auto holeOrCandy: holesAndCandys){
+        if(
+            holeOrCandy->sceneComponentName == "hole" ||
+            (holeOrCandy->sceneComponentName == "coin" && candyCoin == true)
+        ){
+            holeOrCandy->render();
+        }
+    }
 }
 
 void Map::renderSceneComponents(){
@@ -38,6 +49,9 @@ void Map::renderSceneComponents(){
 }
 
 void Map::translateView(Direction direction, int velocity){
+    for(auto holeOrCandy: holesAndCandys){
+        holeOrCandy->translateView(direction, velocity);
+    }
     for(auto enemyCar: enemyCars){
         enemyCar->translateView(direction, velocity);
     }
@@ -56,7 +70,7 @@ void Map::translateView(Direction direction, int velocity){
     }
 }
 
-bool Map::checkAnyFutureCollider(EnemyCar* enemyCar){
+bool Map::checkAnyFutureCarCollider(EnemyCar* enemyCar){
     for(auto otherEnemyCar: enemyCars){
         int leftCheck, rightCheck;
         if(enemyCar->moveDirection == RIGHT){
@@ -83,9 +97,55 @@ bool Map::checkAnyFutureCollider(EnemyCar* enemyCar){
     return false;
 }
 
+bool Map::checkAnyHoleAndCandyCollider(SceneComponent* holeOrCandy){
+    for(auto other: holesAndCandys){
+        if(checkSceneComponentCollider(holeOrCandy, other)){
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Map::checkSceneComponentCollider(SceneComponent* sceneComponent1, SceneComponent* sceneComponent2){
+    if(sceneComponent1->x >= sceneComponent2->x + sceneComponent2->getWidth() || sceneComponent1->x + sceneComponent1->getWidth() <= sceneComponent2->x) return false;
+    if(sceneComponent1->y >= sceneComponent2->y + sceneComponent2->getHeight() || sceneComponent1->y + sceneComponent1->getHeight() <= sceneComponent2->y) return false;
+    return true;
+}
+
+void Map::createHolesAndCandys(){
+    // List all position holes and candys can be placed
+    int stx = background->x + 100;
+    int enx = background->x + background->getWidth() - 100;
+    while(stx < enx){
+        int sty = background->y + 98;
+        int eny = background->y + background->getHeight() - 98;
+        while(sty < eny){
+            if((600 < stx - background->x && stx - background->x < 1240) || (340 < sty - background->y && sty - background->y < 650)){
+                canBePlacedPosition.push_back({stx, sty});
+            }
+            sty += 160;
+        }
+        stx += 150;
+    }
+    random_shuffle(canBePlacedPosition.begin(), canBePlacedPosition.end());
+
+    int numberOfHoles = minimumNumberOfHoles + rand() % 4;
+
+    SceneComponent* hole;
+    for(int i = 0; i < numberOfHoles; i++){
+        hole = new SceneComponent(canBePlacedPosition.back().first, canBePlacedPosition.back().second, "hole");
+        canBePlacedPosition.pop_back();
+        holesAndCandys.push_back(hole);
+    }
+
+    SceneComponent* coin = new SceneComponent(canBePlacedPosition.back().first, canBePlacedPosition.back().second, "coin");
+    canBePlacedPosition.pop_back();
+    holesAndCandys.push_back(coin);
+}
+
 void Map::createEnemyCar(int roadLanes, int x, int y, Direction direction){
         chosenEnemyCar = new EnemyCar(x, y, rand() % 3 + 1, direction);
-        if(SDL_GetTicks() - previousTimeSpawn > spawnTime && !checkAnyFutureCollider(chosenEnemyCar)){
+        if(SDL_GetTicks() - previousTimeSpawn > spawnTime && !checkAnyFutureCarCollider(chosenEnemyCar)){
             enemyCars.push_back(chosenEnemyCar);
             previousTimeSpawn = SDL_GetTicks();
             turn += 1;
@@ -98,6 +158,7 @@ void Map::spawnEnemyCar(int x, int y){
         if(turn == 0){
             chosenRoad = rand() % 2;
             createEnemyCar(2, x - 1000, background->y + left[chosenRoad], RIGHT);
+            // Top Map
             createEnemyCar(2, x - 1000, background->y + background->getHeight() + left[chosenRoad], RIGHT);
             createEnemyCar(2, x - 1000, background->y - background->getHeight() + left[chosenRoad], RIGHT);
         }
@@ -108,6 +169,7 @@ void Map::spawnEnemyCar(int x, int y){
         if(turn == 2){
             chosenRoad = rand() % 2;
             createEnemyCar(2, x + 1000, background->y + right[chosenRoad], LEFT);
+            // Bottom Map
             createEnemyCar(2, x + 1000, background->y + background->getHeight() + right[chosenRoad], LEFT);
             createEnemyCar(2, x + 1000, background->y - background->getHeight() + right[chosenRoad], LEFT);
         }
@@ -161,52 +223,71 @@ SceneComponent* Map::createLight(std::string lightType, Direction direction){
 }
 
 void Map::addBlock(){
+    // Add invisible wall to prevent player from going out the recent map
     if(nextDirection != LEFT){
-        blockRectangles.push_back(new SceneComponent(
-            background->x + blockRoadPositionX[0],
-            background->y + blockRoadPositionY[0],
-            "block3"
-        ));
+        // Check if left is the previous direction, create a space for player car
+        // The same for other directions
         if(previousDirection != LEFT){
+            blockRectangles.push_back(new SceneComponent(
+                background->x + blockRoadPositionX[0],
+                background->y + blockRoadPositionY[0],
+                "block3"
+            ));
             lights.push_back(createLight("redLight", LEFT));
         }else if(previousDirection != DEFAULT){
-            blockRectangles.front()->x -= 10;
+            blockRectangles.push_back(new SceneComponent(
+                background->x + blockRoadPositionX[0] - 30,
+                background->y + blockRoadPositionY[0],
+                "block3"
+            ));
         }
     }
     if(nextDirection != UP){
-        blockRectangles.push_back(new SceneComponent(
-            background->x + blockRoadPositionX[1],
-            background->y + blockRoadPositionY[1],
-            "block2"
-        ));
         if(previousDirection != UP){
+            blockRectangles.push_back(new SceneComponent(
+                background->x + blockRoadPositionX[1],
+                background->y + blockRoadPositionY[1],
+                "block2"
+            ));
             lights.push_back(createLight("redLight", UP));
         }else if(previousDirection != DEFAULT){
-            blockRectangles.front()->y -= 10;
+            blockRectangles.push_back(new SceneComponent(
+                background->x + blockRoadPositionX[1],
+                background->y + blockRoadPositionY[1] - 30,
+                "block2"
+            ));
         }
     }
     if(nextDirection != RIGHT){
-        blockRectangles.push_back(new SceneComponent(
-            background->x + blockRoadPositionX[2],
-            background->y + blockRoadPositionY[2],
-            "block3"
-        ));
         if(previousDirection != RIGHT){
+            blockRectangles.push_back(new SceneComponent(
+                background->x + blockRoadPositionX[2],
+                background->y + blockRoadPositionY[2],
+                "block3"
+            ));
             lights.push_back(createLight("redLight", RIGHT));
         }else if(previousDirection != DEFAULT){
-            blockRectangles.front()->x += 10;
+            blockRectangles.push_back(new SceneComponent(
+                background->x + blockRoadPositionX[2] + 30,
+                background->y + blockRoadPositionY[2],
+                "block3"
+            ));
         }
     }
     if(nextDirection != DOWN){
-        blockRectangles.push_back(new SceneComponent(
-            background->x + blockRoadPositionX[3],
-            background->y + blockRoadPositionY[3],
-            "block2"
-        ));
         if(previousDirection != DOWN){
+            blockRectangles.push_back(new SceneComponent(
+                background->x + blockRoadPositionX[3],
+                background->y + blockRoadPositionY[3],
+                "block2"
+            ));
             lights.push_back(createLight("redLight", DOWN));
         }else if(previousDirection != DEFAULT){
-            blockRectangles.front()->y += 10;
+            blockRectangles.push_back(new SceneComponent(
+                background->x + blockRoadPositionX[3],
+                background->y + blockRoadPositionY[3] + 30,
+                "block2"
+            ));
         }
     }
 }
