@@ -103,7 +103,7 @@ void PlayerCar::removeKey(Direction direction){
     }
 }
 
-void PlayerCar::render(){
+void PlayerCar::translateTheMovement(){
     if(recentVelocity != 0){
         recentVelocity = velocity;
     }
@@ -132,6 +132,9 @@ void PlayerCar::render(){
             }
         }
     }
+}
+
+void PlayerCar::render(){
     this->x = (SCREEN_WIDTH - w) / 2;
     this->y = (SCREEN_HEIGHT - h) / 2;
     Car::render(x, y);
@@ -199,7 +202,7 @@ bool PlayerCar::sceneComponentCollider(SceneComponent* sceneComponent){
 
 bool PlayerCar::checkCandyCollider(std::string candyName){
     for(auto holeOrCandy: sceneComponents->renderBackground->holesAndCandys){
-        if(holeOrCandy->sceneComponentName == candyName && sceneComponentCollider(holeOrCandy) && sceneComponents->renderBackground->candyCoin == true){
+        if(holeOrCandy->sceneComponentName == candyName && sceneComponentCollider(holeOrCandy) && sceneComponents->renderBackground->indentifyCandy(candyName)){
             return true;
         }
     }

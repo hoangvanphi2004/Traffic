@@ -178,4 +178,10 @@ void SceneComponentAsset::turnCandyOn(std::string candyName){
     if(candyName == "coin"){
         aroundRenderBackground[changeDirectionToNumber(renderBackground->nextDirection)]->candyCoin = true;
     }
+    if(candyName == "showDirection"){
+        aroundRenderBackground[changeDirectionToNumber(renderBackground->nextDirection)]->candyShowDirection = true;
+    }
+    if(candyName == "rainbow"){
+        aroundRenderBackground[changeDirectionToNumber(renderBackground->nextDirection)]->candyRainbow = true;
+    }
 }

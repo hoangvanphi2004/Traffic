@@ -22,7 +22,9 @@ void Map::renderBackground(){
     for(auto holeOrCandy: holesAndCandys){
         if(
             holeOrCandy->sceneComponentName == "hole" ||
-            (holeOrCandy->sceneComponentName == "coin" && candyCoin == true)
+            (holeOrCandy->sceneComponentName == "coin" && candyCoin == true) ||
+            (holeOrCandy->sceneComponentName == "showDirection" && candyShowDirection== true) ||
+            (holeOrCandy->sceneComponentName == "rainbow" && candyRainbow == true)
         ){
             holeOrCandy->render();
         }
@@ -114,18 +116,19 @@ bool Map::checkSceneComponentCollider(SceneComponent* sceneComponent1, SceneComp
 
 void Map::createHolesAndCandys(){
     // List all position holes and candys can be placed
-    int stx = background->x + 100;
-    int enx = background->x + background->getWidth() - 100;
+    int stx = background->x + 90;
+    int enx = background->x + background->getWidth() - 90;
+
     while(stx < enx){
-        int sty = background->y + 98;
-        int eny = background->y + background->getHeight() - 98;
+        int sty = background->y + 60;
+        int eny = background->y + background->getHeight() - 60;
         while(sty < eny){
             if((600 < stx - background->x && stx - background->x < 1240) || (340 < sty - background->y && sty - background->y < 650)){
                 canBePlacedPosition.push_back({stx, sty});
             }
-            sty += 160;
+            sty += 180;
         }
-        stx += 150;
+        stx += 140;
     }
     random_shuffle(canBePlacedPosition.begin(), canBePlacedPosition.end());
 
@@ -141,6 +144,24 @@ void Map::createHolesAndCandys(){
     SceneComponent* coin = new SceneComponent(canBePlacedPosition.back().first, canBePlacedPosition.back().second, "coin");
     canBePlacedPosition.pop_back();
     holesAndCandys.push_back(coin);
+    SceneComponent* showDirection = new SceneComponent(background->x + background->getWidth() / 2, background->y + background->getHeight() / 2, "showDirection");
+    canBePlacedPosition.pop_back();
+    holesAndCandys.push_back(showDirection);
+    SceneComponent* rainbow = new SceneComponent(canBePlacedPosition.back().first, canBePlacedPosition.back().second, "rainbow");
+    canBePlacedPosition.pop_back();
+    holesAndCandys.push_back(rainbow);
+}
+
+bool Map::indentifyCandy(std::string candyName){
+    if(candyName == "coin"){
+        return candyCoin;
+    }
+    if(candyName == "showDirection"){
+        return candyShowDirection;
+    }
+    if(candyName == "rainbow"){
+        return candyRainbow;
+    }
 }
 
 void Map::createEnemyCar(int roadLanes, int x, int y, Direction direction){

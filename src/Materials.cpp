@@ -17,6 +17,13 @@ void Materials::loadMaterials(){
 
     loadMaterial("hole", "../Traffic/Assets/Hole.png");
     loadMaterial("coin", "../Traffic/Assets/Coin.png");
+    loadMaterial("showDirection", "../Traffic/Assets/ShowDirection.png");
+    loadMaterial("rainbow", "../Traffic/Assets/Rainbow.png");
+
+    loadMaterial("left", "../Traffic/Assets/Left.png");
+    loadMaterial("up", "../Traffic/Assets/Up.png");
+    loadMaterial("right", "../Traffic/Assets/Right.png");
+    loadMaterial("down", "../Traffic/Assets/Down.png");
 
     loadMaterial("gameName", "../Traffic/Assets/GameName.png");
 

@@ -112,6 +112,7 @@ void Game::runningScreen(){
             playerCar->movement(event);
 
         }
+        playerCar->translateTheMovement();
         sceneComponentAsset->renderBackground->spawnEnemyCar(playerCar->x, playerCar->y);
         Materials::gameMaterials->clean();
 
@@ -120,7 +121,19 @@ void Game::runningScreen(){
             score += 3;
             sceneComponentAsset->renderBackground->candyCoin = false;
         }
+        if(playerCar->checkCandyCollider("showDirection")){
+            sceneComponentAsset->renderBackground->candyShowDirection = false;
+            showDirectionStatus = true;
+        }
+        if(playerCar->checkCandyCollider("rainbow")){
+            sceneComponentAsset->renderBackground->candyRainbow = false;
+            beEnternalStatus = true;
+            changeVisibilityPoint = SDL_GetTicks();
+            beEnternalStartTime = changeVisibilityPoint;
+        }
         if(!playerCar->checkBackground()) {
+            showDirectionStatus &= 0;
+
             Mix_PlayChannel(-1, GeneralThings::gameGeneralThings->changeLight, 0);
             increasingTime -= 1;
             if(Map::spawnTime > 60){
@@ -128,6 +141,8 @@ void Game::runningScreen(){
             }
             if(increasingTime % 2 == 0){
                 sceneComponentAsset->turnCandyOn("coin");
+                sceneComponentAsset->turnCandyOn("showDirection");
+                sceneComponentAsset->turnCandyOn("rainbow");
             }
             if(increasingTime == 0){
                 increasingTime = 5;
@@ -140,12 +155,67 @@ void Game::runningScreen(){
 
         //Render Part
         sceneComponentAsset->render();
-        playerCar->render();
+        if(beEnternalStatus){
+            if(!invisible){
+                playerCar->render();
+            }
+            if(SDL_GetTicks() - changeVisibilityPoint >= changeVisibilityTime){
+                changeVisibilityPoint = SDL_GetTicks();
+                invisible ^= 1;
+            }
+            if(SDL_GetTicks() - beEnternalStartTime >= beEnternalTime){
+                changeVisibilityTime = 40;
+                if(SDL_GetTicks() - beEnternalStartTime >= beEnternalTime + warning){
+                    beEnternalStatus = false;
+                    changeVisibilityTime = 200;
+                }
+            }
+        }else{
+            playerCar->render();
+        }
         Materials::gameMaterials->renderScore();
+        if(showDirectionStatus){
+            switch(sceneComponentAsset->renderBackground->nextDirection){
+                case LEFT:
+                    Materials::gameMaterials->render(
+                        "left",
+                        (SCREEN_WIDTH - Materials::gameMaterials->materials["left"].w) / 2 - 100,
+                        (SCREEN_HEIGHT - Materials::gameMaterials->materials["left"].h) / 2,
+                        SDL_FLIP_NONE
+                    );
+                    break;
+                case UP:
+                    Materials::gameMaterials->render(
+                        "up",
+                        (SCREEN_WIDTH - Materials::gameMaterials->materials["up"].w) / 2,
+                        (SCREEN_HEIGHT - Materials::gameMaterials->materials["up"].h) / 2 - 100,
+                        SDL_FLIP_NONE
+                    );
+                    break;
+                case RIGHT:
+                    Materials::gameMaterials->render(
+                        "right",
+                        (SCREEN_WIDTH- Materials::gameMaterials->materials["right"].w) / 2 + 100,
+                        (SCREEN_HEIGHT - Materials::gameMaterials->materials["right"].h) / 2,
+                        SDL_FLIP_NONE
+                    );
+                    break;
+                case DOWN:
+                    Materials::gameMaterials->render(
+                        "down",
+                        (SCREEN_WIDTH - Materials::gameMaterials->materials["down"].w) / 2,
+                        (SCREEN_HEIGHT - Materials::gameMaterials->materials["down"].h) / 2 + 100,
+                        SDL_FLIP_NONE
+                    );
+                    break;
+                default:
+                    break;
+            }
+        }
 
         //Interaction
         Materials::gameMaterials->print();
-        if(playerCar->checkAnyAccident()){
+        if(playerCar->checkAnyAccident() && !beEnternalStatus){
             Mix_PlayMusic(GeneralThings::gameGeneralThings->carAccident, 0);
             gameOverScreen();
             Mix_HaltMusic();

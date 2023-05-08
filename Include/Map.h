@@ -46,6 +46,8 @@ public:
     static int spawnTime;
     static int minimumNumberOfHoles;
     bool candyCoin = false;
+    bool candyShowDirection = false;
+    bool candyRainbow = false;
 
     Uint32 previousTimeSpawn;
 
@@ -73,6 +75,7 @@ public:
     bool checkSceneComponentCollider(SceneComponent* sceneComponent1, SceneComponent* sceneComponent2);
 
     void createHolesAndCandys();
+    bool indentifyCandy(std::string candyName);
 
     void createEnemyCar(int roadLanes, int x, int y, Direction direction);
     void spawnEnemyCar(int x, int y);

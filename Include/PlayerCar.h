@@ -24,6 +24,7 @@ public:
     PlayerCar(SceneComponentAsset* sceneComponents);
 
     void movement(SDL_Event& event);
+    void translateTheMovement();
     // Some more method to make player movement more smoth
     void addKey(Direction direction);
     void removeKey(Direction direction);

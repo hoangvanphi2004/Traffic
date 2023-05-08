@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://github.com/hoangvanphi2004/Traffic/blob/main/GameIntroduce/GameName.png">
+  <img src="GameIntroduction/GameName.png">
 </div>
 
 # Traffic
@@ -25,9 +25,9 @@ After a hard working day, you are so excited to go home as soon as possible. But
 - There are some bonus gift across the journey (Im updating)
 ## Some image about the game
 <div align="">
-  <img src="https://github.com/hoangvanphi2004/Traffic/blob/main/GameIntroduce/img1.png">
-  <img src="https://github.com/hoangvanphi2004/Traffic/blob/main/GameIntroduce/img2.png">
-  <img src="https://github.com/hoangvanphi2004/Traffic/blob/main/GameIntroduce/img3.png">
+  <img src="GameIntroduction/img1.png">
+  <img src="GameIntroduction/img2.png">
+  <img src="GameIntroduction/img3.png">
 </div>
 
 ## Credit
