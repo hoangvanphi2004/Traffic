@@ -111,7 +111,7 @@
 	<SDL_mixer.h>
 	"def.h"
 
-1683543005 source:d:\programming\laptrinhnangcao\traffic\src\game.cpp
+1683552250 source:d:\programming\laptrinhnangcao\traffic\src\game.cpp
 	"../Include/Game.h"
 
 1683543508 d:\programming\laptrinhnangcao\traffic\include\game.h
@@ -611,10 +611,10 @@
 	"begin_code.h"
 	"close_code.h"
 
-1683205568 source:d:\programming\laptrinhnangcao\traffic\src\generalthings.cpp
+1683552226 source:d:\programming\laptrinhnangcao\traffic\src\generalthings.cpp
 	"../Include/GeneralThings.h"
 
-1683209434 d:\programming\laptrinhnangcao\traffic\include\generalthings.h
+1683552201 d:\programming\laptrinhnangcao\traffic\include\generalthings.h
 	<SDL.h>
 	"Materials.h"
 	"Button.h"

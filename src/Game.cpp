@@ -118,16 +118,20 @@ void Game::runningScreen(){
 
         // Core game logic
         if(playerCar->checkCandyCollider("coin")){
+            Mix_PlayChannel(-1, GeneralThings::gameGeneralThings->coinSound, 0);
             score += 3;
             sceneComponentAsset->renderBackground->candyCoin = false;
         }
         if(playerCar->checkCandyCollider("showDirection")){
+            Mix_PlayChannel(-1, GeneralThings::gameGeneralThings->showDirectionSound, 0);
             sceneComponentAsset->renderBackground->candyShowDirection = false;
             showDirectionStatus = true;
         }
         if(playerCar->checkCandyCollider("rainbow")){
+            Mix_PlayMusic(GeneralThings::gameGeneralThings->eternalMusic, -1);
             sceneComponentAsset->renderBackground->candyRainbow = false;
             beEnternalStatus = true;
+            changeVisibilityTime = 200;
             changeVisibilityPoint = SDL_GetTicks();
             beEnternalStartTime = changeVisibilityPoint;
         }
@@ -166,6 +170,7 @@ void Game::runningScreen(){
             if(SDL_GetTicks() - beEnternalStartTime >= beEnternalTime){
                 changeVisibilityTime = 40;
                 if(SDL_GetTicks() - beEnternalStartTime >= beEnternalTime + warning){
+                    Mix_PlayMusic(GeneralThings::gameGeneralThings->gameSoundTrack, -1);
                     beEnternalStatus = false;
                     changeVisibilityTime = 200;
                 }
@@ -215,7 +220,7 @@ void Game::runningScreen(){
 
         //Interaction
         Materials::gameMaterials->print();
-        if(playerCar->checkAnyAccident() && !beEnternalStatus){
+        /*if(playerCar->checkAnyAccident() && !beEnternalStatus){
             Mix_PlayMusic(GeneralThings::gameGeneralThings->carAccident, 0);
             gameOverScreen();
             Mix_HaltMusic();
@@ -223,7 +228,7 @@ void Game::runningScreen(){
             if(goBackToMainMenu == true){
                 break;
             }
-        }
+        }*/
     }
 }
 

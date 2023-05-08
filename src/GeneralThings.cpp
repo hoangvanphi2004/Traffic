@@ -8,6 +8,10 @@ void GeneralThings::loadGeneralThings(){
     carAccident = Mix_LoadMUS("../Traffic/Assets/CarAccident.mp3");
     changeLight = Mix_LoadWAV("../Traffic/Assets/ChangeLight.mp3");
 
+    coinSound = Mix_LoadWAV("../Traffic/Assets/EatingCoinSound.mp3");
+    showDirectionSound = Mix_LoadWAV("../Traffic/Assets/ShowDirectionSound.mp3");
+    eternalMusic = Mix_LoadMUS("../Traffic/Assets/EternalMusic.mp3");
+
     playButton = new Button(
         "play",
         (SCREEN_WIDTH - Materials::gameMaterials->materials["buttonIn1"].w) / 2,

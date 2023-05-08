@@ -14,6 +14,10 @@ public:
     Mix_Music* carAccident;
     Mix_Chunk* changeLight;
 
+    Mix_Chunk* coinSound;
+    Mix_Chunk* showDirectionSound;
+    Mix_Music* eternalMusic;
+
     Button* playButton;
     Button* helpButton;
     Button* quitButton;
