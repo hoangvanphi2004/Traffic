@@ -3,6 +3,7 @@
 </div>
 
 # Traffic
+A game's made by a lovely guy from UET
 ## Description
 After a hard working day, you are so excited to go home as soon as possible. But you suddenly remembering its five oclock and at this time the road lead to your home, "Cau Giay" is pretty ... But you talk to yourself: "I can do it!" and take your bag go straight to your car. And now, you have to face with the dizzying traffic in the town. Can you get to your home ? Let go and see it !
 ## Rule
@@ -14,15 +15,19 @@ After a hard working day, you are so excited to go home as soon as possible. But
 - Yellow light show the previous crossroad we have passed
 - Green light show the only way we can pass through
 - Red light show the forbidden road and you cant pass through it
+- Avoid the holes and the cars across the crossroad
+- There are some nice presents across the journey! Just noice a bit and you will find something really interesting!
 ## Install
 - Copy all file in the folder Install to C:\Windows\System32
 - Double click on file Traffic.exe and play!
 ## Feature
 - Everytime we pass through the green light the level will increase (pass a crossroad)
-- Every round the number of car will increase
-- After 5 round the speed of every car will increase
+- After some level speed and number of every car will increase
 - Speed of other cars always equal to speed of player car
-- There are some bonus gift across the journey (Im updating)
+- There are some bonus gift across the journey!
+  - Eating the coin will increase the score
+  - Eating the blue candy will help you find out the road have the green light faster
+  - Eating the rainbow candy will make you invincible! but it only lasts for a certain time so use it effectively!
 ## Some image about the game
 <div align="">
   <img src="GameIntroduction/img1.png">
