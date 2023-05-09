@@ -8,7 +8,7 @@
 class Car{
 public:
     int w, h;
-    Direction moveDirection = DEFAULT;
+    Direction moveDirection;
     static float velocity;
 protected:
     float recentVelocity = 0;

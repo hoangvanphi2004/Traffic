@@ -26,6 +26,8 @@ public:
     Direction direction;
     Direction previousDirection = DEFAULT;
     Direction nextDirection = DEFAULT;
+
+    static Direction playerMoveDirection;
 private:
     // Spawn enemy position
     int left[2] = {640, 560}; // y position
@@ -43,6 +45,10 @@ private:
     int chosenRoad;
     EnemyCar* chosenEnemyCar;
 public:
+    static int playerVelocity;
+
+    static bool renderHoles;
+
     static int spawnTime;
     static int minimumNumberOfHoles;
     bool candyCoin = false;

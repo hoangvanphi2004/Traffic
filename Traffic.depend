@@ -98,7 +98,7 @@
 
 1683464891 d:\programming\laptrinhnangcao\traffic\include\def.h
 
-1683198539 d:\programming\laptrinhnangcao\traffic\include\car.h
+1683643559 d:\programming\laptrinhnangcao\traffic\include\car.h
 	<SDL.h>
 	<iostream>
 	"Materials.h"
@@ -111,17 +111,17 @@
 	<SDL_mixer.h>
 	"def.h"
 
-1683552250 source:d:\programming\laptrinhnangcao\traffic\src\game.cpp
+1683645492 source:d:\programming\laptrinhnangcao\traffic\src\game.cpp
 	"../Include/Game.h"
 
-1683543508 d:\programming\laptrinhnangcao\traffic\include\game.h
+1683645492 d:\programming\laptrinhnangcao\traffic\include\game.h
 	<SDL.h>
 	<iostream>
 	"PlayerCar.h"
 	"SceneComponentAsset.h"
 	"GeneralThings.h"
 
-1683541574 d:\programming\laptrinhnangcao\traffic\include\playercar.h
+1683644393 d:\programming\laptrinhnangcao\traffic\include\playercar.h
 	<SDL.h>
 	<vector>
 	"Car.h"
@@ -135,7 +135,7 @@
 	"../Include/Game.h"
 	"../Include/def.h"
 
-1683541558 source:d:\programming\laptrinhnangcao\traffic\src\playercar.cpp
+1683644452 source:d:\programming\laptrinhnangcao\traffic\src\playercar.cpp
 	"../Include/PlayerCar.h"
 
 1681476059 source:d:\programming\laptrinhnangcao\traffic\src\car.cpp
@@ -175,7 +175,7 @@
 	"Map.h"
 	"SceneComponent.h"
 
-1683537041 d:\programming\laptrinhnangcao\traffic\include\map.h
+1683645492 d:\programming\laptrinhnangcao\traffic\include\map.h
 	<SDL.h>
 	<algorithm>
 	<vector>
@@ -185,7 +185,7 @@
 	"def.h"
 	"EnemyCar.h"
 
-1683541245 source:d:\programming\laptrinhnangcao\traffic\src\map.cpp
+1683645492 source:d:\programming\laptrinhnangcao\traffic\src\map.cpp
 	"../Include/Map.h"
 
 1681032990 source:d:\programming\laptrinhnangcao\traffic\src\def.cpp

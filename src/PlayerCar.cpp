@@ -1,5 +1,8 @@
 #include "../Include/PlayerCar.h"
 
+Direction PlayerCar::moveDirectionStatus = DEFAULT;
+int PlayerCar::recentVelocityStatus = 0;
+
 PlayerCar::PlayerCar(SceneComponentAsset* sceneComponents) : Car("player"){
     this->sceneComponents = sceneComponents;
     w = Materials::gameMaterials->materials[carName + "Vertical"].w;
@@ -77,12 +80,14 @@ void PlayerCar::movement(SDL_Event& event){
             }
         }
     }
+    recentVelocityStatus = recentVelocity;
 }
 
 void PlayerCar::addKey(Direction direction){
     keyPress.push_back(direction);
     readingKey += 1;
     moveDirection = direction;
+    moveDirectionStatus = moveDirection;
 }
 
 void PlayerCar::removeKey(Direction direction){
@@ -101,6 +106,7 @@ void PlayerCar::removeKey(Direction direction){
     }else{
         moveDirection = keyPress[readingKey - 1];
     }
+    moveDirectionStatus = moveDirection;
 }
 
 void PlayerCar::translateTheMovement(){

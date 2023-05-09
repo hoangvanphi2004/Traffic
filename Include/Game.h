@@ -14,8 +14,9 @@ private:
     SDL_Event event;
     bool quit = false;
 
-    //This variable count number of round from the last round that car speed increase
-    int increasingTime = 5;
+    // This variable count number of round from the last round that car speed increase
+    int firstIncreasingTime = 3;
+    int increasingTime = 3;
     int previousVelocity = 0;
     int startVelocity = 2;
 
@@ -25,6 +26,10 @@ private:
     // Candy status !!!!!!
     bool showDirectionStatus = false;
     bool beEnternalStatus = false;
+    int scoreForCoin = 3;
+
+    int theMapHaveCoin;
+    int theMapHaveShowDirection;
 
     // Rainbow candy service
     bool invisible = false;

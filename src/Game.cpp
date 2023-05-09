@@ -15,6 +15,7 @@ Game::Game(const char *title, int screen_width, int screen_height){
 }
 
 void Game::menuScreen(){
+    Map::renderHoles = false;
     freopen("highScore.txt", "r", stdin);
     std::cin >> highScore;
     Car::velocity = startVelocity;
@@ -34,7 +35,7 @@ void Game::menuScreen(){
         sceneComponentAsset->renderBackground->spawnEnemyCar(playerCar->x, playerCar->y);
         Materials::gameMaterials->clean();
 
-        //Render Part
+        // Render Part
         sceneComponentAsset->render();
         Materials::gameMaterials->render(
             "gameName",
@@ -44,12 +45,13 @@ void Game::menuScreen(){
         GeneralThings::gameGeneralThings->helpButton->render();
         GeneralThings::gameGeneralThings->quitButton->render();
 
-        //Interaction
+        // Interaction
         if(GeneralThings::gameGeneralThings->playButton->isClicked == true){
             Mix_HaltMusic();
             sceneComponentAsset = new SceneComponentAsset();
             playerCar = new PlayerCar(sceneComponentAsset);
             runningScreen();
+            Map::renderHoles = false;
             sceneComponentAsset = new SceneComponentAsset();
             playerCar = new PlayerCar(sceneComponentAsset);
             Mix_PlayMusic(GeneralThings::gameGeneralThings->menuSoundTrack, -1);
@@ -79,7 +81,7 @@ void Game::helpScreen(){
         sceneComponentAsset->renderBackground->spawnEnemyCar(playerCar->x, playerCar->y);
         Materials::gameMaterials->clean();
 
-        //Render Part
+        // Render Part
         sceneComponentAsset->render();
         Materials::gameMaterials->render(
             "helpBoard",
@@ -89,7 +91,7 @@ void Game::helpScreen(){
         );
         GeneralThings::gameGeneralThings->backButton->render();
 
-        //Interaction
+        // Interaction
         if(GeneralThings::gameGeneralThings->backButton->isClicked == true){
             GeneralThings::gameGeneralThings->backButton->isClicked = false;
             break;
@@ -99,6 +101,7 @@ void Game::helpScreen(){
 }
 
 void Game::runningScreen(){
+    Map::renderHoles = true;
     score = 0;
     Mix_PlayMusic(GeneralThings::gameGeneralThings->gameSoundTrack, -1);
     while(!quit){
@@ -117,9 +120,12 @@ void Game::runningScreen(){
         Materials::gameMaterials->clean();
 
         // Core game logic
+        Map::playerMoveDirection = PlayerCar::moveDirectionStatus;
+        Map::playerVelocity = PlayerCar::recentVelocityStatus;
+
         if(playerCar->checkCandyCollider("coin")){
             Mix_PlayChannel(-1, GeneralThings::gameGeneralThings->coinSound, 0);
-            score += 3;
+            score += scoreForCoin + rand() % 4;
             sceneComponentAsset->renderBackground->candyCoin = false;
         }
         if(playerCar->checkCandyCollider("showDirection")){
@@ -140,24 +146,37 @@ void Game::runningScreen(){
 
             Mix_PlayChannel(-1, GeneralThings::gameGeneralThings->changeLight, 0);
             increasingTime -= 1;
-            if(Map::spawnTime > 60){
-                Map::spawnTime -= 20;
+            if(increasingTime % 4 == 3){
+                theMapHaveCoin = rand() % 4;
             }
-            if(increasingTime % 2 == 0){
+            if(increasingTime % 4 == theMapHaveCoin){
                 sceneComponentAsset->turnCandyOn("coin");
+            }
+            if(increasingTime % 6 == 3){
+                theMapHaveShowDirection = rand() % 6;
+            }
+            if(increasingTime % 6 == theMapHaveShowDirection){
                 sceneComponentAsset->turnCandyOn("showDirection");
+            }
+            if(increasingTime == firstIncreasingTime / 2){
                 sceneComponentAsset->turnCandyOn("rainbow");
+                Map::minimumNumberOfHoles += 1;
             }
             if(increasingTime == 0){
-                increasingTime = 5;
+                firstIncreasingTime += firstIncreasingTime * 3 / 4;
+                increasingTime = firstIncreasingTime;
                 Car::velocity += 1;
                 score += 1;
+                Map::spawnTime = std::max(Map::spawnTime - 20, 100);
+                Map::minimumNumberOfHoles += 1;
             }
+            Map::minimumNumberOfHoles = std::min(Map::minimumNumberOfHoles, 15);
+            scoreForCoin += 1;
             score += 1;
         }
         Materials::gameMaterials->loadScore(score);
 
-        //Render Part
+        // Render Part
         sceneComponentAsset->render();
         if(beEnternalStatus){
             if(!invisible){
@@ -218,9 +237,9 @@ void Game::runningScreen(){
             }
         }
 
-        //Interaction
+        // Interaction
         Materials::gameMaterials->print();
-        /*if(playerCar->checkAnyAccident() && !beEnternalStatus){
+        if(playerCar->checkAnyAccident() && !beEnternalStatus){
             Mix_PlayMusic(GeneralThings::gameGeneralThings->carAccident, 0);
             gameOverScreen();
             Mix_HaltMusic();
@@ -228,11 +247,12 @@ void Game::runningScreen(){
             if(goBackToMainMenu == true){
                 break;
             }
-        }*/
+        }
     }
 }
 
 void Game::pauseScreen(){
+    Map::renderHoles = true;
     previousVelocity = Car::velocity;
     Car::velocity = 0;
     while(!quit){
@@ -246,13 +266,13 @@ void Game::pauseScreen(){
         Materials::gameMaterials->clean();
         Materials::gameMaterials->loadScore(score);
 
-        //Render Part
+        // Render Part
         sceneComponentAsset->render();
         playerCar->render();
         GeneralThings::gameGeneralThings->resumeButton->render();
         Materials::gameMaterials->renderScore();
 
-        //Interaction
+        // Interaction
         if(GeneralThings::gameGeneralThings->resumeButton->isClicked == true){
             Car::velocity = previousVelocity;
             GeneralThings::gameGeneralThings->resumeButton->isClicked = false;
@@ -263,6 +283,7 @@ void Game::pauseScreen(){
 }
 
 void Game::gameOverScreen(){
+    Map::renderHoles = true;
     Car::velocity = 0;
     highScore = std::max(score, highScore);
     while(!quit){
@@ -278,7 +299,7 @@ void Game::gameOverScreen(){
         Materials::gameMaterials->loadText("score", std::to_string(score), 0);
         Materials::gameMaterials->loadText("highScore", std::to_string(highScore), 0);
 
-        //Render Part
+        // Render Part
         sceneComponentAsset->render();
         Materials::gameMaterials->render(
             "pauseBoard",
@@ -313,12 +334,16 @@ void Game::gameOverScreen(){
         GeneralThings::gameGeneralThings->playAgainButton->render();
         GeneralThings::gameGeneralThings->mainMenuButton->render();
 
-        //Interaction
+        // Interaction
         if(GeneralThings::gameGeneralThings->playAgainButton->isClicked == true){
+            // Reset everything
             sceneComponentAsset = new SceneComponentAsset();
             playerCar = new PlayerCar(sceneComponentAsset);
+            firstIncreasingTime = 3;
+            scoreForCoin = 3;
             GeneralThings::gameGeneralThings->playAgainButton->isClicked = false;
             Car::velocity = startVelocity;
+            Map::renderHoles = true;
             score = 0;
             break;
         }

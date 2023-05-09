@@ -13,6 +13,8 @@
 class PlayerCar: public Car{
 public:
     int x, y;
+    static Direction moveDirectionStatus;
+    static int recentVelocityStatus;
 private:
     int countKeyPress = 0;
     int readingKey = 0;

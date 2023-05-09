@@ -1,7 +1,10 @@
 #include "../Include/Map.h"
 
-int Map::spawnTime = 400;
+int Map::spawnTime = 350;
 int Map::minimumNumberOfHoles = 3;
+Direction Map::playerMoveDirection = DEFAULT;
+int Map::playerVelocity = 0;
+bool Map::renderHoles = false;
 
 Map::Map(SceneComponent* background, Direction direction) : background(background){
     previousTimeSpawn = 0;
@@ -21,7 +24,7 @@ void Map::renderBackground(){
     background->render();
     for(auto holeOrCandy: holesAndCandys){
         if(
-            holeOrCandy->sceneComponentName == "hole" ||
+            (holeOrCandy->sceneComponentName == "hole" && renderHoles == true)||
             (holeOrCandy->sceneComponentName == "coin" && candyCoin == true) ||
             (holeOrCandy->sceneComponentName == "showDirection" && candyShowDirection== true) ||
             (holeOrCandy->sceneComponentName == "rainbow" && candyRainbow == true)
@@ -176,6 +179,9 @@ void Map::createEnemyCar(int roadLanes, int x, int y, Direction direction){
 void Map::spawnEnemyCar(int x, int y){
     if(opposite(direction) == DEFAULT){
         turn %= 4;
+        if(opposite(changeNumberToDirection(turn % 4)) == playerMoveDirection && playerVelocity != 0){
+            turn += 1;
+        }
         if(turn == 0){
             chosenRoad = rand() % 2;
             createEnemyCar(2, x - 1000, background->y + left[chosenRoad], RIGHT);
