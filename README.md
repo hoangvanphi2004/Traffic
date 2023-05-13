@@ -17,10 +17,6 @@ After a hard working day, you are so excited to go home as soon as possible. But
 - Red light show the forbidden road and you cant pass through it
 - Avoid the holes and the cars across the crossroad
 - There are some nice presents across the journey! Just noice a bit and you will find something really interesting!
-## Install
-- First you need to install minGW on your computer
-- Copy all file in the folder Install to C:\Windows\System32
-- Double click on file Traffic.exe and play!
 ## Feature
 - Everytime we pass through the green light the level will increase (pass a crossroad)
 - After some level speed and number of every car will increase
@@ -42,6 +38,10 @@ After a hard working day, you are so excited to go home as soon as possible. But
 - https://www.youtube.com/watch?v=yLX4ljnnQoY for a chilling soundtrack
 - Google for some beautiful car images
 - Lazyfoo for the instruction to make a 2D game. You can also learn it by click on this link https://lazyfoo.net/tutorials/SDL/index.php
+- And thank to this following people: 
+  - Vu Tung Lam, Nguyen Huu Phuong for helping me fixing the code
+  - Bao Lam, Tran Duy Nguyen, Tran Gia Bao for testing the game
+  - Nguyen Thi Xuan Thanh for the visual issue
 - And me, the one who make this game.
 ## Contact
 If you have any idea or find any issue about my game. Please contact me!
