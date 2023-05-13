@@ -18,7 +18,7 @@ private:
     int firstIncreasingTime = 3;
     int increasingTime = 3;
     int previousVelocity = 0;
-    int startVelocity = 2;
+    int startVelocity = 3;
 
     int score = 0;
     int highScore = 0;
