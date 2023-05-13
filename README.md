@@ -18,6 +18,7 @@ After a hard working day, you are so excited to go home as soon as possible. But
 - Avoid the holes and the cars across the crossroad
 - There are some nice presents across the journey! Just noice a bit and you will find something really interesting!
 ## Install
+- First you need to install minGW on your computer
 - Copy all file in the folder Install to C:\Windows\System32
 - Double click on file Traffic.exe and play!
 ## Feature
